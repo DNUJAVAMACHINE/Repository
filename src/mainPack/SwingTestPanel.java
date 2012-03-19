@@ -17,7 +17,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class SwingTestPanel extends JPanel implements MouseListener, FocusListener {
-    MyMessageBox    msgBox    = new MyMessageBox();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	MyMessageBox    msgBox    = new MyMessageBox();
 
     public SwingTestPanel(){
         initialize();
@@ -110,7 +114,6 @@ public class SwingTestPanel extends JPanel implements MouseListener, FocusListen
             System.out.println("Focus lost by box");
         }
     }
-
     public static void main(String args[]){
         JFrame window = new JFrame();
         SwingTestPanel content = new SwingTestPanel();
