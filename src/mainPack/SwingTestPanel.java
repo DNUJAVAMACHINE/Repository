@@ -1,6 +1,6 @@
 package mainPack;
-//Yura commit
-/*
+//yura commit
+/*Vetal
  * 
  */
 import java.awt.Color;
