@@ -1,7 +1,6 @@
 package mainPack;
-//yura commit
-/*Vetal
- * 
+/**
+ * ≈хали медведи на велосипеде...
  */
 import java.awt.Color;
 import java.awt.Dimension;
