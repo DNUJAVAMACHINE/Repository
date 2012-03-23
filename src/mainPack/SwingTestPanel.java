@@ -1,6 +1,6 @@
 package mainPack;
-//Yura commit
-/*
+//yura commit
+/*Vetal
  * 
  */
 import java.awt.Color;
@@ -16,12 +16,9 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class SwingTestPanel extends JPanel implements MouseListener, FocusListener {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	MyMessageBox    msgBox    = new MyMessageBox();
+    MyMessageBox    msgBox    = new MyMessageBox();
 
     public SwingTestPanel(){
         initialize();
