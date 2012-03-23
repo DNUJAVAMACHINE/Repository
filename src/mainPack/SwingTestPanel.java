@@ -1,6 +1,7 @@
 package mainPack;
 /**
  * Ехали медведи на велосипеде...
+ * А за ними зайци прмо на китайце...
  */
 import java.awt.Color;
 import java.awt.Dimension;
