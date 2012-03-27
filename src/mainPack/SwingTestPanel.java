@@ -65,7 +65,12 @@ public class SwingTestPanel extends JPanel implements MouseListener, FocusListen
     public void mouseExited(MouseEvent me){}
 
     static class MyMessageBox extends JComponent implements FocusListener, MouseListener {
-        MyMessageBox(){
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		MyMessageBox(){
             initialize();
             addMouseListener(this);
             addFocusListener(this);
