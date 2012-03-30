@@ -1,4 +1,4 @@
-package VisualComponents;
+package team.game.visual;
 
 import javax.swing.JPanel;
 /**
