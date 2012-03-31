@@ -77,4 +77,5 @@ public class GameProcessor {
 			game.Field.getCell(xy.x, xy.y).setOwner(player);
 		}
 	}
+	
 }
