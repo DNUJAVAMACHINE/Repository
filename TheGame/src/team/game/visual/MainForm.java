@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,11 +18,14 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
+
 /**
  * Главная форма
  * Размер высоты больше 575 не устанавливать!
@@ -33,45 +37,55 @@ public class MainForm
 {
 	private JFrame f=new JFrame("Virus War");
 	private ImagePanel imagePnael=new ImagePanel();
-	JMenuBar menuBar=new JMenuBar();
-	JMenu gameMenu=new JMenu("Игра");
-	JMenu helpMenu=new JMenu("Помощь");
-	JMenuItem createItem=new JMenuItem("Создать");
-	JMenuItem connectItem=new JMenuItem("Подключиться");
-	JMenuItem rulesItem=new JMenuItem("Правила игры");
-	JMenuItem aboutItem=new JMenuItem("О программе");
+	private JMenuBar menuBar=new JMenuBar();
+	private JMenu gameMenu=new JMenu("Игра");
+	private JMenu helpMenu=new JMenu("Помощь");
+	private JMenuItem createItem=new JMenuItem("Создать");
+	private JMenuItem connectItem=new JMenuItem("Подключиться");
+	private JMenuItem rulesItem=new JMenuItem("Правила игры");
+	private JMenuItem aboutItem=new JMenuItem("О программе");
 	
-	JPanel gameFieldPanel=new JPanel();//Панель с игровым плем.
-	JPanel emptyPanel=new JPanel();//////////////////хз панель!(не удалять)
-	JPanel createPanel=new JPanel();//Панель для создания новой игры
-	JPanel connectPanel=new JPanel();//Панель для подключения к игре
+	private JPanel gameFieldPanel=new JPanel();//Панель с игровым плем.
+	private LogoPanel emptyPanel=new LogoPanel();//////////////////хз панель!(не удалять)
+	private JPanel createPanel=new JPanel();//Панель для создания новой игры
+	private JPanel connectPanel=new JPanel();//Панель для подключения к игре
 	
-	JSpinner countPlayer;//Количество игроков 1-4
-	JSpinner sizeField;//Размер Поля игры 
-	JTextField playerName;//
-	JTabbedPane tabFromCreate=new JTabbedPane();//
+	private JSpinner countPlayer;//Количество игроков 2-4
+	private JSpinner sizeField;//Размер Поля игры 
+	private JTextField playerName;//
+	private JTabbedPane tabFromCreate=new JTabbedPane();//
 	
-	JButton buttonStartLocalGame=new JButton("Старт");
-	JButton buttonStartLanGame=new JButton("Старт");
-	JButton buttonCreateLanGame=new JButton("Создать игру");
-	JButton buttonSendMessageFromCreatePanel=new JButton("Отправить");
-	JButton buttonConnect=new JButton("Подключится");
-	JButton buttonDisConnect=new JButton("Отключится");
-	JButton buttonSendMessageFromConnectPanel=new JButton("Отправить");
+	private JButton buttonStartLocalGame=new JButton("Старт");
+	private JButton buttonStartLanGame=new JButton("Старт");
+	private JButton buttonCreateLanGame=new JButton("Создать игру");
+	private JButton buttonConnect=new JButton("Подключится");
+	private JButton buttonDisConnect=new JButton("Отключится");
+	private JButton buttonSendMessageFromConnectPanel=new JButton("Отправить");
+	private JButton buttomSendMessageFromFieldPanel=new JButton("Отправить");
+	private JButton buttonSendMessageFromCreatePanel=new JButton("Отправить");
 	
-	JTextField playerIP=new JTextField(16);//Поле с отображемым айпи
-	JTextField serverIP=new JTextField(16);//Поле для ввода айпи сервера
-	JTextField playerMessageFromCreatePanel=new JTextField(20);//Поле сообщения сгрока
-	JTextField playerMessageFromConnectPanel=new JTextField(20);//--||--
+	private JTextField playerIP=new JTextField(16);//Поле с отображемым айпи
+	private JTextField serverIP=new JTextField(16);//Поле для ввода айпи сервера
+	private JTextField playerMessageFromCreatePanel=new JTextField(20);//Поле сообщения сгрока
+	private JTextField playerMessageFromConnectPanel=new JTextField(20);//--||--
+	private JTextField playerMessageFromFieldPanel=new JTextField(20);//--||--
 	
-	JLabel stateFromConnectpanel=new JLabel();//Состояние игрока при подключении
+	private JLabel stateFromConnectpanel=new JLabel();//Состояние игрока при подключении//////////////////проверит положение!
+	private JLabel stateFromFieldPanel=new JLabel("Starting...");//состояние игрока (сечас ходит игрок №1...)
 	
-	JTextArea chatFromConnectPlayer=new JTextArea();
-	JTextArea chatFromCreatePanel=new JTextArea();
-	JTextArea chatFromConnectPanel=new JTextArea();
+	private JTextArea chatFromConnectPlayer=new JTextArea();
+	private JTextArea chatFromCreatePanel=new JTextArea();
+	private JTextArea chatFromConnectPanel=new JTextArea();
+	private JTextArea chatFromFieldPanel=new JTextArea();
 	
-	Dimension sizeButton=new Dimension(110,30);
+	private Dimension sizeButton=new Dimension(110,30);
 	
+	
+	private ImageIcon volumeImageDisable=new ImageIcon("resources\\volumeDisable2.jpg");
+	private ImageIcon volumeImageEanble=new ImageIcon("resources\\volumeEnable2.jpg");
+	private JButton buttonVolume=new JButton(volumeImageDisable);
+	private JSlider volume=new JSlider(JSlider.HORIZONTAL,0,99,0);//Регулятор звука.... 
+	private boolean volumeEnable=false;//тру есть звук, фалс... 
 	
 	public MainForm()
 	{
@@ -94,12 +108,21 @@ public class MainForm
 		
 		SetComponentsFromCreatePanel();
 		SetComponentsFromConnectPanel();
-		//f.add(createPanel);
+		SetComponentsFromFieldPanel();
+		
+		//запреты писать прямо в окне чата.
+		chatFromConnectPanel.setEditable(false);
+		chatFromConnectPlayer.setEditable(false);
+		chatFromCreatePanel.setEditable(false);
+		chatFromFieldPanel.setEditable(false);
+		
+		setPanelFromFrame(emptyPanel);
 		
 		f.setVisible(true);		
 	}
 	/**
 	 * Добавляет обработчики для компонентов
+	 * @author Юрий
 	 */
 	private void AddActions()
 	{
@@ -121,10 +144,28 @@ public class MainForm
 					}
 				}
 				);
+		buttonVolume.addActionListener(
+				new ActionListener() 
+				{
+					public void actionPerformed(ActionEvent ae) 
+					{
+						if (volumeEnable)
+							volumeEnable=false;
+						else
+							volumeEnable=true;
+						if (volumeEnable)
+							buttonVolume.setIcon(volumeImageEanble);
+						else
+							buttonVolume.setIcon(volumeImageDisable);
+					}
+				}
+				);
 	}
 	/**
 	 * Переход по основным панелькам.
 	 * @param panel одна из createPanel,emptyPanel,connectPanel,gameFieldPanel
+	 *
+	 * @author Юрий
 	 */
 	private void setPanelFromFrame(JPanel panel)
 	{
@@ -150,7 +191,7 @@ public class MainForm
 		
 		JPanel countPlayerPanel=new JPanel();
 		SpinnerNumberModel model=new SpinnerNumberModel();
-		model.setMinimum(1);
+		model.setMinimum(2);
 		model.setMaximum(4);
 		model.setValue(4);
 		countPlayer=new JSpinner(model);
@@ -244,6 +285,8 @@ public class MainForm
 	}
 	/**
 	 * Установка компонентов в панель подключения к игре
+	 * @author Юрий
+	 * 
 	 */
 	private void SetComponentsFromConnectPanel()
 	{
@@ -294,8 +337,41 @@ public class MainForm
 		
 		
 	}
+
+	private void SetComponentsFromFieldPanel()
+	{
+		JPanel bottomPanel=new JPanel();
+		//JPanel centerPanel=new JPanel();
+		JPanel topPanel=new JPanel();
+		
+		bottomPanel.setLayout(new BorderLayout());
+		playerMessageFromFieldPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		bottomPanel.add("Center",playerMessageFromFieldPanel);
+		bottomPanel.add("East",buttomSendMessageFromFieldPanel);
+		chatFromFieldPanel.setPreferredSize(new Dimension(0,90));
+		chatFromFieldPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		bottomPanel.add("North",chatFromFieldPanel);
+		
+		topPanel.setLayout(new BorderLayout());
+		topPanel.add("West",stateFromFieldPanel);
+		//topPanel.add("East",null);//////////////////////////////////////звукорегулято.
+		buttonVolume.setBorder(null);
+		
+		JPanel volumePanel=new JPanel();
+		volumePanel.setLayout(new BorderLayout());
+		
+		volumePanel.add("West",buttonVolume);
+		volumePanel.add("Center",volume);
+		topPanel.add("East",volumePanel);
+		///////////////////////////////////////////////////////////////////////////////
+		gameFieldPanel.setLayout(new BorderLayout());
+		gameFieldPanel.add("North",topPanel);
+		gameFieldPanel.add("Center",imagePnael);
+		gameFieldPanel.add("South",bottomPanel);
+	}
 	
-	//private void SetComponentsFrom ща пилю...
+	
+	
 	
 	
 	
