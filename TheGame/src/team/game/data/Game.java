@@ -11,7 +11,8 @@ public class Game {
 	public GameField 		Field;
 	public GameProcessor 	Processor;
 	public LocalPlayer[]	players;
-	public LocalPlayer		current;
+	private LocalPlayer		current;
+	private int 			indexCurrent;
 	
 	private static Game game = new Game();
 	
@@ -26,5 +27,15 @@ public class Game {
 	
 	public static Game getInstance() {
 		return game;
+	}
+	/**
+	 * передача хода следуещему игроку
+	 */
+	public void nextPlayer(){
+		if(indexCurrent<players.length-1)
+			indexCurrent ++;
+		else
+			indexCurrent = 0;
+		current = players[indexCurrent];	
 	}
 }
