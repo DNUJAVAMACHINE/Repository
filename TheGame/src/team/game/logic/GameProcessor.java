@@ -140,6 +140,7 @@ public class GameProcessor {
 	public GameProcessor( Game game) {
 		this.game = game;
 	}
+	
 	public void ProcessStep(LocalPlayer player, Point xy){
 		Tree TRcell= new Tree(player, xy);
 		TRcell.searhLife();
