@@ -4,7 +4,7 @@ import team.game.logic.GameProcessor;
 
 /**
  * 
- * @author Виталя & AWESOME
+ * @author Виталя & AWESOME (но больше Виталя :))
  *
  */
 public class Game {
