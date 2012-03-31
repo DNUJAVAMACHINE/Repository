@@ -77,8 +77,8 @@ public class GameProcessor {
 	}
 	/**
 	 * говорит есть ли у pl свободный ход
-	 * @param pl
-	 * @return
+	 * @param pl, конкретный игрок
+	 * @return true, если есть ход
 	 */
 	public boolean existenceMove(LocalPlayer pl){ 
 		boolean res = false;
@@ -100,7 +100,7 @@ public class GameProcessor {
 	}
 	/**
 	 * говорит есть ли вообще ходы хоть у одного игрока
-	 * @return
+	 * @return true, если есть ход
 	 */
 	public boolean GameEnd(){
 		boolean res = false;
