@@ -50,33 +50,31 @@ public class GameProcessor {
 				}
 			}
 			//----------------------------------------------------------
-		}
-			
-			
-		void searhLife(){
-			//boolean isLife=false;
+		}			
+		boolean searhLife(){
+			boolean res = false;
 			for(int i=0; i< BranchesXY.size(); ++i)
 			{
 				if(Branches.get(i).getActor()==null){
-					Head.setActor(Head.getOwner());
-					Head.setOwner(player);
-					//isLife =true;
+					res = true;
 					break;
 				}
 				else{
 					Tree tmp=new Tree(player, BranchesXY.get(i));
 					tmp.searhLife();
-				}
-					
+				}					
 			}
+			return res;
 		}
 	}
 	public GameProcessor( Game game) {
 		this.game = game;
 	}
-	
 	public void ProcessStep(LocalPlayer player, Point xy){
 		Tree TRcell= new Tree(player, xy);
-		TRcell.searhLife();
+		if(TRcell.searhLife()){
+			game.Field.getCell(xy.x, xy.y).setActor(game.Field.getCell(xy.x, xy.y).getOwner());
+			game.Field.getCell(xy.x, xy.y).setOwner(player);
+		}
 	}
 }
