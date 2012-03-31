@@ -8,6 +8,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+
+import team.game.data.Cell;
 /**
  * Прорисовка графич компонент
  * Отловка ходов игрока 
@@ -17,12 +19,9 @@ import javax.swing.JPanel;
  */
 public class ImagePanel extends JPanel
 {
-	class myCell
-	{
-		int a;
-	}
 	int CellWidth;//delete
 	int CellHeight;//delete
+	Cell cells[][]=new Cell[10][10];
  
 	private Image green;
 	private Image blue;
@@ -42,9 +41,10 @@ public class ImagePanel extends JPanel
 	private Image yellowKillsRed;
 
 	/**
-	 * загрузка картинок
+	 * загрузка картинок в конструкторе
+	 * @param refFormCells ссылка на масив Cell-сов
 	 */
-	ImagePanel()
+	ImagePanel(/*Cell refFormCells*/)
 	{
 		try 
 		{
