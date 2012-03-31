@@ -79,7 +79,6 @@ public class ImagePanel extends JPanel
 	{
 		super.paint(g);
 		int x=0,y=0;
-		//g.drawImage(green,x,y,null);
-		//x+=50;		
+		g.drawLine(0,0,this.getWidth(), this.getHeight());//M-G-G		
 	}
 }
