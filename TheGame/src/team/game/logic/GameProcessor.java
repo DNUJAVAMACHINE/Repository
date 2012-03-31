@@ -77,5 +77,30 @@ public class GameProcessor {
 			game.Field.getCell(xy.x, xy.y).setOwner(player);
 		}
 	}
-	
+	public boolean existenceMove(LocalPlayer pl){ // говорит есть ли у pl свободный ход
+		boolean res = false;
+		for(int i=0; i< game.Field.getCountX(); ++i)
+			for(int j=0; j< game.Field.getCountY(); ++j)
+				if((game.Field.getCell(i, j).getOwner()== null)
+						||(game.Field.getCell(i, j).getOwner()!= pl 
+						&& game.Field.getCell(i, j).getActor()==null)){
+					Point tmp	= new Point();
+					tmp.x		= i;
+					tmp.y		= j;
+					Tree tree = new Tree(pl,tmp);
+					if(tree.searhLife()){
+						res = true;
+						break;
+					}
+				}
+		return res;
+	}
+	public boolean GameEnd(){//говорит есть ли вообще ходы хоть у одного игрока
+		boolean res = false;
+		for(int i=0; i< game.players.length; ++i){
+			res=existenceMove(game.players[i]);
+			if(res) return res;
+		}		
+		return res;
+	}
 }
