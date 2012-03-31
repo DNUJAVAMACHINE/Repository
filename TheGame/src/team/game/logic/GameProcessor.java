@@ -67,9 +67,7 @@ public class GameProcessor {
 			return res;
 		}
 	}
-	public GameProcessor( Game game) {
-		this.game = game;
-	}
+	public GameProcessor( Game game) {this.game = game;}
 	public void ProcessStep(LocalPlayer player, Point xy){
 		Tree TRcell= new Tree(player, xy);
 		if(TRcell.searhLife()){
@@ -77,7 +75,12 @@ public class GameProcessor {
 			game.Field.getCell(xy.x, xy.y).setOwner(player);
 		}
 	}
-	public boolean existenceMove(LocalPlayer pl){ // говорит есть ли у pl свободный ход
+	/**
+	 * говорит есть ли у pl свободный ход
+	 * @param pl
+	 * @return
+	 */
+	public boolean existenceMove(LocalPlayer pl){ 
 		boolean res = false;
 		for(int i=0; i< game.Field.getCountX(); ++i)
 			for(int j=0; j< game.Field.getCountY(); ++j)
@@ -95,7 +98,11 @@ public class GameProcessor {
 				}
 		return res;
 	}
-	public boolean GameEnd(){//говорит есть ли вообще ходы хоть у одного игрока
+	/**
+	 * говорит есть ли вообще ходы хоть у одного игрока
+	 * @return
+	 */
+	public boolean GameEnd(){
 		boolean res = false;
 		for(int i=0; i< game.players.length; ++i){
 			res=existenceMove(game.players[i]);
