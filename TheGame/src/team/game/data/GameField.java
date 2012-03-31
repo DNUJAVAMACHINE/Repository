@@ -12,10 +12,8 @@ public class GameField {
 		this.countY = countY;
 		
 		for (int i = 0; i < countX; ++i)
-			for (int j = 0; j < countY; ++j) {
-				cells[i][j] = new Cell();
-				cells[i][j].model = CellState.EMPTY_CELL;
-			}
+			for (int j = 0; j < countY; ++j) 
+				cells[i][j] = new Cell();			
 	}
 	
 	public Cell getCell(int i, int j) {
