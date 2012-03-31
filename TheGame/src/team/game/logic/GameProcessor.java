@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import team.game.data.Cell;
 import team.game.data.Game;
 import team.game.data.LocalPlayer;
@@ -30,6 +32,7 @@ public class GameProcessor {
 			Head 		= game.Field.getCell(RootXY.x,RootXY.y);
 			Branches	= new ArrayList<Cell>();
 			BranchesXY 	= new ArrayList<Point>();
+
 			try{
 				if(game.Field.getCell(RootXY.x-1,RootXY.y-1).getOwner()== player){
 					Branches.add(game.Field.getCell(RootXY.x-1,RootXY.y-1));
@@ -38,10 +41,7 @@ public class GameProcessor {
 					tmp.y= RootXY.y-1;
 					BranchesXY.add(tmp);
 				}
-			}
-			catch (Exception e) {
-			}
-			try{
+			
 				if(game.Field.getCell(RootXY.x,RootXY.y-1).getOwner()== player){
 					Branches.add(game.Field.getCell(RootXY.x,RootXY.y-1));
 					Point tmp = new Point();
@@ -49,10 +49,7 @@ public class GameProcessor {
 					tmp.y= RootXY.y-1;
 					BranchesXY.add(tmp);
 				}
-			}
-			catch (Exception e) {
-			}
-			try{
+			
 				if(game.Field.getCell(RootXY.x+1,RootXY.y-1).getOwner()== player){
 					Branches.add(game.Field.getCell(RootXY.x+11,RootXY.y-1));
 					Point tmp = new Point();
@@ -60,10 +57,7 @@ public class GameProcessor {
 					tmp.y= RootXY.y-1;
 					BranchesXY.add(tmp);
 				}
-			}
-			catch (Exception e) {
-			}
-			try{
+				
 				if(game.Field.getCell(RootXY.x-1,RootXY.y).getOwner()== player){
 					Branches.add(game.Field.getCell(RootXY.x-1,RootXY.y));
 					Point tmp = new Point();
@@ -71,10 +65,7 @@ public class GameProcessor {
 					tmp.y= RootXY.y;
 					BranchesXY.add(tmp);
 				}
-			}
-			catch (Exception e) {
-			}
-			try{
+			
 				if(game.Field.getCell(RootXY.x+1,RootXY.y).getOwner()== player){
 					Branches.add(game.Field.getCell(RootXY.x+1,RootXY.y));
 					Point tmp = new Point();
@@ -82,10 +73,7 @@ public class GameProcessor {
 					tmp.y= RootXY.y;
 					BranchesXY.add(tmp);
 				}
-			}
-			catch (Exception e) {
-			}
-			try{
+			
 				if(game.Field.getCell(RootXY.x-1,RootXY.y+1).getOwner()== player){
 					Branches.add(game.Field.getCell(RootXY.x-1,RootXY.y+1));
 					Point tmp = new Point();
@@ -93,10 +81,7 @@ public class GameProcessor {
 					tmp.y= RootXY.y+1;
 					BranchesXY.add(tmp);
 				}
-			}
-			catch (Exception e) {
-			}
-			try{
+			
 				if(game.Field.getCell(RootXY.x,RootXY.y+1).getOwner()== player){
 					Branches.add(game.Field.getCell(RootXY.x,RootXY.y+1));
 					Point tmp = new Point();
@@ -104,10 +89,7 @@ public class GameProcessor {
 					tmp.y= RootXY.y+1;
 					BranchesXY.add(tmp);
 				}
-			}
-			catch (Exception e) {
-			}
-			try{
+
 				if(game.Field.getCell(RootXY.x+1,RootXY.y+1).getOwner()== player){
 					Branches.add(game.Field.getCell(RootXY.x+1,RootXY.y+1));
 					Point tmp = new Point();
@@ -116,7 +98,9 @@ public class GameProcessor {
 					BranchesXY.add(tmp);
 				}
 			}
-			catch (Exception e) {
+			catch (Throwable e) {
+				JOptionPane.showMessageDialog(null, e, "Error!", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
 			}
 		}
 		void searhLife(){
