@@ -190,8 +190,13 @@ public class MainForm
 						String player4 = player4NameFromLocalgame.getText() != null && 
 								         player4NameFromLocalgame.getText() != "" ? 
 								         player4NameFromLocalgame.getText() : null;
-								         
+								        
 						game.setPlayers(player1, player2, player3, player4);
+						//изначальные клетки игроков
+						//game.Field.getCell(0, 0).setActor();
+						//game.Field.getCell(3, 3).setActor();
+						//game.Field.getCell(3, 4).setActor();
+						//game.Field.getCell(5, 5).setActor();
 					}
 				});
 	}
