@@ -4,8 +4,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import team.game.data.Cell;
 import team.game.data.Game;
 import team.game.data.LocalPlayer;
