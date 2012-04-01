@@ -39,8 +39,8 @@ public class MainForm
 {
 	private Game game;
 	
+	private ImagePanel imagePnael;
 	private JFrame f=new JFrame("Virus War");
-	private ImagePanel imagePnael=new ImagePanel(game.Field);
 	private JMenuBar menuBar=new JMenuBar();
 	private JMenu gameMenu=new JMenu("Игра");
 	private JMenu helpMenu=new JMenu("Помощь");
@@ -102,6 +102,9 @@ public class MainForm
 		f.setMinimumSize(new Dimension(500,300));
 		Dimension scrinSize=Toolkit.getDefaultToolkit().getScreenSize();
 		f.setLocation(scrinSize.width/2-f.getWidth()/2, scrinSize.height/2-f.getHeight()/2);
+		
+		game = Game.getInstance();
+		imagePnael = new ImagePanel(game.Field);
 		
 		gameMenu.add(createItem);
 		gameMenu.addSeparator();
@@ -188,7 +191,6 @@ public class MainForm
 								         player4NameFromLocalgame.getText() != "" ? 
 								         player4NameFromLocalgame.getText() : null;
 								         
-						game = Game.getInstance();
 						game.setPlayers(player1, player2, player3, player4);
 					}
 				});

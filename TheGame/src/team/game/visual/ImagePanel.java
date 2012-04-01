@@ -7,10 +7,8 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import team.game.data.Cell;
 import team.game.data.FigureType;
 import team.game.data.GameField;
 import team.game.data.LocalPlayer;
@@ -18,7 +16,7 @@ import team.game.data.LocalPlayer;
  * Прорисовка графич компонент
  * Отловка ходов игрока 
  * В архитектуре ГеймВйу
- * @author Юрий
+ * @author Юрий и самую малость AWESOME :)
  *
  */
 public class ImagePanel extends JPanel
