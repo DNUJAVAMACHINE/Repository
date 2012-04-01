@@ -1,5 +1,9 @@
 package team.game.data;
-
+/**
+ * 
+ * @author AWESOME и кто-то ещё :)
+ *
+ */
 public class GameField {
 	
 	private int countX;
@@ -9,7 +13,9 @@ public class GameField {
 	
 	public GameField(int countX, int countY) {
 		this.countX = countX;
-		this.countY = countY;		
+		this.countY = countY;	
+		
+		cells = new Cell[countX][countY];
 		for (int i = 0; i < countX; ++i)
 			for (int j = 0; j < countY; ++j) 
 				cells[i][j] = new Cell();			

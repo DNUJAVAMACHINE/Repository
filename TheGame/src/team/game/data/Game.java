@@ -31,7 +31,10 @@ public class Game {
 	 */
 	public void setPlayers(String... names) {
 		for (int i = 0; i < names.length && i < 4; ++i)
-			players[i] = new LocalPlayer(names[i]);
+			if (names[i] != null)
+				players[i] = new LocalPlayer(names[i]);
+			else
+				players[i] = null;
 	}
 	
 	public static Game getInstance() {

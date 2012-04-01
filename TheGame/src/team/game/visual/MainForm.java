@@ -26,11 +26,13 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 
+import team.game.data.Game;
+
 /**
  * Главная форма
  * Размер высоты больше 575 не устанавливать!
  * Все происходит на главной форме, меняются только главные панэльки.
- * @author Юрий
+ * @author Юрий и чуток AWESOME :)
  *
  */
 public class MainForm 
@@ -164,6 +166,30 @@ public class MainForm
 					}
 				}
 				);
+		buttonStartLocalGame.addActionListener(
+				new ActionListener() 
+				{
+					public void actionPerformed(ActionEvent ae) 
+					{
+						setPanelFromFrame(gameFieldPanel);
+						
+						String player1 = player1NameFromLocalgame.getText() != null && 
+								         player1NameFromLocalgame.getText() != "" ? 
+								         player1NameFromLocalgame.getText() : null;
+						String player2 = player2NameFromLocalgame.getText() != null && 
+								         player2NameFromLocalgame.getText() != "" ? 
+								         player2NameFromLocalgame.getText() : null;
+						String player3 = player3NameFromLocalgame.getText() != null && 
+								         player3NameFromLocalgame.getText() != "" ? 
+								         player3NameFromLocalgame.getText() : null;
+						String player4 = player4NameFromLocalgame.getText() != null && 
+								         player4NameFromLocalgame.getText() != "" ? 
+								         player4NameFromLocalgame.getText() : null;
+								         
+						Game game = Game.getInstance();
+						game.setPlayers(player1, player2, player3, player4);
+					}
+				});
 	}
 	/**
 	 * Переход по основным панелькам.
@@ -225,29 +251,29 @@ public class MainForm
 		
 		createPanel.add("North",topPanel);
 		
-		JPanel leftPanel=new JPanel();
-		leftPanel.setPreferredSize(new Dimension(170,0));
+		JPanel panelFromPlayer=new JPanel(new GridLayout(4, 2));
+		panelFromPlayer.setPreferredSize(new Dimension(300, 200));
 		
-		JPanel panelFrom1player=new JPanel(),panelFrom2player=new JPanel(),panelFrom3player=new JPanel(),
-				panelFrom4player=new JPanel();
-		Dimension sizepanel=new Dimension(150,50);
-		panelFrom1player.setPreferredSize(sizepanel);
-		panelFrom2player.setPreferredSize(sizepanel);
-		panelFrom3player.setPreferredSize(sizepanel);
-		panelFrom4player.setPreferredSize(sizepanel);
-		
-		panelFrom1player.add(new JLabel("Игрок №1:"));
-		panelFrom2player.add(new JLabel("Игрок №2:"));
-		panelFrom3player.add(new JLabel("Игрок №3:"));
-		panelFrom4player.add(new JLabel("Игрок №4:"));		
-		
-		panelFrom1player.add(player1NameFromLocalgame);
-		panelFrom2player.add(player2NameFromLocalgame);
-		panelFrom3player.add(player3NameFromLocalgame);
-		panelFrom4player.add(player4NameFromLocalgame);
+		panelFromPlayer.add(new JLabel("Игрок №1:"));
+		panelFromPlayer.add(player1NameFromLocalgame);
+		panelFromPlayer.add(new JLabel("Игрок №2:"));
+		panelFromPlayer.add(player2NameFromLocalgame);
+		panelFromPlayer.add(new JLabel("Игрок №3:"));
+		panelFromPlayer.add(player3NameFromLocalgame);
+		panelFromPlayer.add(new JLabel("Игрок №4:"));		
+		panelFromPlayer.add(player4NameFromLocalgame);
 		
 		JPanel panelFromLoacalGame=new JPanel();
 		panelFromLoacalGame.setLayout(new BorderLayout());
+		
+		JPanel startButtonAndLabel = new JPanel();
+		buttonStartLocalGame.setPreferredSize(sizeButton);
+		startButtonAndLabel.add(buttonStartLocalGame);
+		startButtonAndLabel.add(new JLabel());
+		startButtonAndLabel.add(new JLabel("<html>Нажмите старт, для начала локальной игры <br> с заданными параметрами."));
+		
+		panelFromLoacalGame.add(panelFromPlayer, BorderLayout.CENTER);
+		panelFromLoacalGame.add(startButtonAndLabel, BorderLayout.SOUTH);
 		
 		/*
 		panelFromLoacalGame.add(panelFrom1);
@@ -255,20 +281,8 @@ public class MainForm
 		panelFromLoacalGame.add(panelFrom3);
 		panelFromLoacalGame.add(panelFrom4);
 		*/
-		buttonStartLocalGame.setPreferredSize(sizeButton);
-		leftPanel.add(panelFrom1player);
-		leftPanel.add(panelFrom2player);
-		leftPanel.add(panelFrom3player);
-		leftPanel.add(panelFrom4player);
-		leftPanel.add(buttonStartLocalGame);
 		
 		//panelFromLoacalGame.add(buttonStartLocalGame);
-		
-		JLabel label=new JLabel("<html>Нажмите старт, для начала локальной игры <br> с заданными параметрами.");
-		label.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-		
-		panelFromLoacalGame.add(label);
-		panelFromLoacalGame.add("West",leftPanel);
 		
 		tabFromCreate.addTab("Игра с этого компьютера", panelFromLoacalGame);
 		
@@ -283,7 +297,7 @@ public class MainForm
 		JPanel left=new JPanel();
 		left.setPreferredSize(new Dimension(120,0));
 		
-		label=new JLabel("Ваш IP адрес:");
+		JLabel label=new JLabel("Ваш IP адрес:");
 		label.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
 		left.add(label);
 		buttonCreateLanGame.setPreferredSize(sizeButton);
