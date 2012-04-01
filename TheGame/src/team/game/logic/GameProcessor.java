@@ -68,12 +68,15 @@ public class GameProcessor {
 		}
 	}
 	public GameProcessor( Game game) {this.game = game;}
-	public void ProcessStep(LocalPlayer player, Point xy){
+	public boolean ProcessStep(LocalPlayer player, Point xy){
 		Tree TRcell= new Tree(player, xy);
 		if(TRcell.searhLife()){
 			game.Field.getCell(xy.x, xy.y).setActor(game.Field.getCell(xy.x, xy.y).getOwner());
 			game.Field.getCell(xy.x, xy.y).setOwner(player);
+			return true;
 		}
+		else
+			return false;
 	}
 	/**
 	 * говорит есть ли у pl свободный ход

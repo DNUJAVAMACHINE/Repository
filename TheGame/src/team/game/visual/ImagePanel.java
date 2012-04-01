@@ -67,6 +67,7 @@ public class ImagePanel extends JPanel
 		} 
 		catch (IOException e) 
 		{
+			//e.printStackTrace();
 			System.out.println("Эпик фэйл пикчер нот фаунд :)");
 		}
 	}
