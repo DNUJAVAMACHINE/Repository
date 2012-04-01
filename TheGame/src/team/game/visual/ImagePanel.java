@@ -25,8 +25,8 @@ public class ImagePanel extends JPanel
 {
 	//int CellWidth;//delete
 	//int CellHeight;//delete
-	Cell cells[][]=new Cell[10][10];
- 
+	GameField gameField;
+	
 	private Image green;
 	private Image blue;
 	private Image yellow;
@@ -48,8 +48,10 @@ public class ImagePanel extends JPanel
 	 * загрузка картинок в конструкторе
 	 * @param refFormCells ссылка на масив Cell-сов
 	 */
-	ImagePanel(/*Cell refFormCells*/)
+	ImagePanel(GameField _gameField)
 	{
+		gameField = _gameField;
+		
 		try 
 		{
 			green=ImageIO.read(new File("resources\\Green.jpg"));
@@ -83,8 +85,8 @@ public class ImagePanel extends JPanel
 	{
 		super.paint(g);
 		int i,j;
-		int countWidth=cells[0].length;
-		int countHeight=cells.length;
+		int countWidth=gameField.countX;
+		int countHeight=gameField.countY;
 		int cellWidth=getWidth()/countWidth;
 		int cellHeight=getHeight()/countHeight;
 		
@@ -95,11 +97,11 @@ public class ImagePanel extends JPanel
 			g.drawLine(i*cellWidth,0,i*cellWidth,countHeight*cellHeight);
 		
 		Image image=null;
-		for (i=0;i<cells.length;++i)
-			for (j=0;j<cells[0].length;++j)//if-ы не пределовать!
+		for (i=0;i<gameField.countY;++i)
+			for (j=0;j<gameField.countX;++j)//if-ы не пределовать!
 			{
-				LocalPlayer owner=cells[i][j].getOwner();
-				LocalPlayer actor=cells[i][j].getActor();
+				LocalPlayer owner=gameField.getCell(i, j).getOwner();
+				LocalPlayer actor=gameField.getCell(i, j).getActor();
 				if (owner!=null)
 				{
 					if (actor==null)

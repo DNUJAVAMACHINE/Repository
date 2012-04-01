@@ -6,8 +6,8 @@ package team.game.data;
  */
 public class GameField {
 	
-	private int countX;
-	private int countY;
+	public int countX;
+	public int countY;
 	
 	private Cell[][] cells;
 	
