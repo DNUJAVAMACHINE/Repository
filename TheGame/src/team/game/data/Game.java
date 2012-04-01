@@ -8,9 +8,10 @@ import team.game.logic.GameProcessor;
  *
  */
 public class Game {
-	public GameField 		Field;
-	public GameProcessor 	Processor;
-	public LocalPlayer[]	players;
+	
+	public  GameField 		Field;
+	public  GameProcessor 	Processor;
+	public  LocalPlayer[]	players;
 	private LocalPlayer		current;
 	private int 			indexCurrent;
 	
@@ -24,6 +25,14 @@ public class Game {
 		Field = new GameField(20, 20);
 		Processor = new GameProcessor(this);
 	}
+	/**
+	 * устанавливает игроков
+	 * @param names имена игроков
+	 */
+	public void setPlayers(String... names) {
+		for (int i = 0; i < names.length && i < 4; ++i)
+			players[i] = new LocalPlayer(names[i]);
+	}
 	
 	public static Game getInstance() {
 		return game;
@@ -31,9 +40,9 @@ public class Game {
 	/**
 	 * передача хода следуещему игроку
 	 */
-	public void nextPlayer(){
-		if(indexCurrent<players.length-1)
-			indexCurrent ++;
+	public void nextPlayer() {
+		if(indexCurrent < players.length - 1)
+			++indexCurrent;
 		else
 			indexCurrent = 0;
 		current = players[indexCurrent];	
