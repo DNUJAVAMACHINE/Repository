@@ -20,9 +20,8 @@ public class Game {
 	private Game() {
 		players = new LocalPlayer[4];
 		for (int i = 0; i < 4; ++i)
-			players[i] = null;
-		
-		Field = new GameField(20, 20);
+			players[i] = null;	
+		Field = new GameField(10, 10);
 		Processor = new GameProcessor(this);
 	}
 	/**
@@ -49,5 +48,13 @@ public class Game {
 		else
 			indexCurrent = 0;
 		current = players[indexCurrent];	
+	}
+	/**
+	 * задается размер поля countX на countY 
+ 	 * @param countX, количество строк
+	 * @param countY, количество столбцов
+	 */
+	public void setSize(int countX, int countY){
+		Field = new GameField(countX, countY);
 	}
 }
