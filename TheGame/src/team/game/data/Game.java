@@ -21,7 +21,7 @@ public class Game {
 		players = new LocalPlayer[4];
 		for (int i = 0; i < 4; ++i)
 			players[i] = null;	
-		Field = new GameField(10, 10);
+		//Field = new GameField(10, 10);
 		Processor = new GameProcessor(this);
 	}
 	/**
@@ -56,5 +56,25 @@ public class Game {
 	 */
 	public void setSize(int countX, int countY){
 		Field = new GameField(countX, countY);
+	}
+	/**
+	 * 
+	 * @param index индекс игрока
+	 * @return Null при всяких плохих ситуациях... 
+	 */
+	public LocalPlayer getPlayer(int index)
+	{
+		if (players!=null)
+		{
+			try
+			{
+				return players[index];
+			}
+			catch(ArrayIndexOutOfBoundsException e)
+			{
+				//return null;  походу не нужен...
+			}
+		}
+		return null;
 	}
 }
