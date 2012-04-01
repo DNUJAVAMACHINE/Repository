@@ -1,6 +1,5 @@
 package team.game.visual;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -11,6 +10,10 @@ import javax.swing.JPanel;
 
 public class LogoPanel extends JPanel
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Image image;
 	public LogoPanel() 
 	{
