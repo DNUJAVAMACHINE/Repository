@@ -32,7 +32,7 @@ public class Game {
 	public void setPlayers(String... names) {
 		for (int i = 0; i < names.length && i < 4; ++i)
 			if (names[i] != null)
-				players[i] = new LocalPlayer(names[i]);
+				players[i] = new LocalPlayer(names[i], (i+1));
 			else
 				players[i] = null;
 	}
