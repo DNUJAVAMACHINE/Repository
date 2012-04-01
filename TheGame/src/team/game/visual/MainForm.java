@@ -23,8 +23,8 @@ import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.UIManager;
 
 /**
  * Главная форма
@@ -69,6 +69,10 @@ public class MainForm
 	private JTextField playerMessageFromCreatePanel=new JTextField(20);//Поле сообщения сгрока
 	private JTextField playerMessageFromConnectPanel=new JTextField(20);//--||--
 	private JTextField playerMessageFromFieldPanel=new JTextField(20);//--||--
+	private JTextField player1NameFromLocalgame=new JTextField(10);//Имена игроков в локальной игре...
+	private JTextField player2NameFromLocalgame=new JTextField(10);
+	private JTextField player3NameFromLocalgame=new JTextField(10);
+	private JTextField player4NameFromLocalgame=new JTextField(10);
 	
 	private JLabel stateFromConnectpanel=new JLabel();//Состояние игрока при подключении//////////////////проверит положение!
 	private JLabel stateFromFieldPanel=new JLabel("Starting...");//состояние игрока (сечас ходит игрок №1...)
@@ -214,21 +218,59 @@ public class MainForm
 		
 		JPanel playerNamePanel=new JPanel();
 		playerName=new JTextField(7);
-		playerNamePanel.add(new JLabel("Введите имя:"));
-		playerNamePanel.add(playerName);
+		//playerNamePanel.add(new JLabel("Введите имя:"));///////////////////Пршлый ввод имени игрока...
+		//playerNamePanel.add(playerName);
 		
 		topPanel.add(playerNamePanel);
 		
 		createPanel.add("North",topPanel);
 		
+		JPanel leftPanel=new JPanel();
+		leftPanel.setPreferredSize(new Dimension(170,0));
+		
+		JPanel panelFrom1player=new JPanel(),panelFrom2player=new JPanel(),panelFrom3player=new JPanel(),
+				panelFrom4player=new JPanel();
+		Dimension sizepanel=new Dimension(150,50);
+		panelFrom1player.setPreferredSize(sizepanel);
+		panelFrom2player.setPreferredSize(sizepanel);
+		panelFrom3player.setPreferredSize(sizepanel);
+		panelFrom4player.setPreferredSize(sizepanel);
+		
+		panelFrom1player.add(new JLabel("Игрок №1:"));
+		panelFrom2player.add(new JLabel("Игрок №2:"));
+		panelFrom3player.add(new JLabel("Игрок №3:"));
+		panelFrom4player.add(new JLabel("Игрок №4:"));		
+		
+		panelFrom1player.add(player1NameFromLocalgame);
+		panelFrom2player.add(player2NameFromLocalgame);
+		panelFrom3player.add(player3NameFromLocalgame);
+		panelFrom4player.add(player4NameFromLocalgame);
+		
 		JPanel panelFromLoacalGame=new JPanel();
+		panelFromLoacalGame.setLayout(new BorderLayout());
+		
+		/*
+		panelFromLoacalGame.add(panelFrom1);
+		panelFromLoacalGame.add(panelFrom2);
+		panelFromLoacalGame.add(panelFrom3);
+		panelFromLoacalGame.add(panelFrom4);
+		*/
 		buttonStartLocalGame.setPreferredSize(sizeButton);
-		panelFromLoacalGame.add(buttonStartLocalGame);
+		leftPanel.add(panelFrom1player);
+		leftPanel.add(panelFrom2player);
+		leftPanel.add(panelFrom3player);
+		leftPanel.add(panelFrom4player);
+		leftPanel.add(buttonStartLocalGame);
+		
+		//panelFromLoacalGame.add(buttonStartLocalGame);
+		
 		JLabel label=new JLabel("<html>Нажмите старт, для начала локальной игры <br> с заданными параметрами.");
 		label.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-		panelFromLoacalGame.add(label);
 		
-		tabFromCreate.addTab("Игра с этого компъютера", panelFromLoacalGame);
+		panelFromLoacalGame.add(label);
+		panelFromLoacalGame.add("West",leftPanel);
+		
+		tabFromCreate.addTab("Игра с этого компьютера", panelFromLoacalGame);
 		
 		/////////////////////////////////////////////////////////////////////////////////////////LanGame
 		JPanel panelFromLanGame=new JPanel();
