@@ -1,5 +1,6 @@
 package team.game.visual;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -10,6 +11,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import team.game.data.Cell;
+import team.game.data.FigureType;
+import team.game.data.GameField;
+import team.game.data.LocalPlayer;
 /**
  * Прорисовка графич компонент
  * Отловка ходов игрока 
@@ -19,8 +23,8 @@ import team.game.data.Cell;
  */
 public class ImagePanel extends JPanel
 {
-	int CellWidth;//delete
-	int CellHeight;//delete
+	//int CellWidth;//delete
+	//int CellHeight;//delete
 	Cell cells[][]=new Cell[10][10];
  
 	private Image green;
@@ -78,7 +82,107 @@ public class ImagePanel extends JPanel
 	public void paint(Graphics g) 
 	{
 		super.paint(g);
-		int x=0,y=0;
-		g.drawLine(0,0,this.getWidth(), this.getHeight());//M-G-G		
+		int i,j;
+		int countWidth=cells[0].length;
+		int countHeight=cells.length;
+		int cellWidth=getWidth()/countWidth;
+		int cellHeight=getHeight()/countHeight;
+		
+		g.setColor(Color.black);
+		for (i=0;i<countHeight+1;++i)
+			g.drawLine(0,i*cellHeight,cellWidth*countWidth,i*cellHeight);	
+		for (i=0;i<countWidth+1;++i)
+			g.drawLine(i*cellWidth,0,i*cellWidth,countHeight*cellHeight);
+		
+		Image image=null;
+		for (i=0;i<cells.length;++i)
+			for (j=0;j<cells[0].length;++j)//if-ы не пределовать!
+			{
+				LocalPlayer owner=cells[i][j].getOwner();
+				LocalPlayer actor=cells[i][j].getActor();
+				if (owner!=null)
+				{
+					if (actor==null)
+					{
+						switch (owner.figureType) 
+						{
+							case FigureType.BLUE_SQUARE:
+								image=blue;							
+								break;
+							case FigureType.GREEN_STRIPS:
+								image=green;
+								break;
+							case FigureType.RED_CROSS:
+								image=red;
+								break;
+							case FigureType.YELLOW_CIRCLE:
+								image=yellow;
+						}
+					}
+					else//actor!=null
+					{
+						switch (owner.figureType)
+						{
+						case FigureType.BLUE_SQUARE:
+							switch (actor.figureType)
+							{
+							case FigureType.GREEN_STRIPS:
+								image=blueKillsGreen;
+								break;
+							case FigureType.RED_CROSS:
+								image=blueKillsRed;
+								break;
+							case FigureType.YELLOW_CIRCLE:
+								image=blueKillsYellow;
+								break;
+							}
+							break;
+						case FigureType.GREEN_STRIPS:
+							switch (actor.figureType)
+							{
+							case FigureType.BLUE_SQUARE:
+								image=greenKillsBlue;
+								break;
+							case FigureType.RED_CROSS:
+								image=greenKillsRed;
+								break;
+							case FigureType.YELLOW_CIRCLE:
+								image=greenKillsYellow;
+								break;
+							}
+							break;
+						case FigureType.RED_CROSS:
+							switch (actor.figureType)
+							{
+							case FigureType.BLUE_SQUARE:
+								image=redKillsBlue;
+								break;
+							case FigureType.GREEN_STRIPS:
+								image=redKillsGreen;
+								break;
+							case FigureType.YELLOW_CIRCLE:
+								image=redKillsYellow;
+								break;
+							}
+							break;
+						case FigureType.YELLOW_CIRCLE:
+							switch(actor.figureType)
+							{
+							case FigureType.BLUE_SQUARE:
+								image=yellowKillsBlue;
+								break;
+							case FigureType.GREEN_STRIPS:
+								image=yellowKillsGreen;
+								break;
+							case FigureType.RED_CROSS:
+								image=yellowKillsRed;
+								break;
+							}
+						}
+					}
+					//brush image;
+					g.drawImage(image,i*cellWidth,j*cellWidth,null);
+				}
+			}
 	}
 }
