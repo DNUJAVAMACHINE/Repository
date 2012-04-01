@@ -254,6 +254,7 @@ public class MainForm
 		panelFromPlayer.setPreferredSize(new Dimension(300, 200));
 		
 		panelFromPlayer.add(new JLabel("Игрок №1:"));
+		player1NameFromLocalgame.setBorder(null);
 		panelFromPlayer.add(player1NameFromLocalgame);
 		panelFromPlayer.add(new JLabel("Игрок №2:"));
 		panelFromPlayer.add(player2NameFromLocalgame);
