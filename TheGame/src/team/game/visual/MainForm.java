@@ -26,7 +26,6 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 import team.game.data.Game;
-import team.game.data.GameField;
 
 /**
  * Главная форма
@@ -104,6 +103,7 @@ public class MainForm
 		f.setLocation(scrinSize.width/2-f.getWidth()/2, scrinSize.height/2-f.getHeight()/2);
 		
 		game = Game.getInstance();
+		game.setSize(20, 20);
 		imagePnael = new ImagePanel(game.Field);
 		
 		gameMenu.add(createItem);
