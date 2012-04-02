@@ -12,7 +12,6 @@ public class Game {
 	public  GameField 		Field;
 	public  GameProcessor 	Processor;
 	public  LocalPlayer[]	players;
-	private LocalPlayer		current;
 	private int 			indexCurrent;
 	
 	private static Game game = new Game();
@@ -47,7 +46,6 @@ public class Game {
 			++indexCurrent;
 		else
 			indexCurrent = 0;
-		current = players[indexCurrent];	
 	}
 	/**
 	 * задается размер поля countX на countY 
