@@ -104,7 +104,7 @@ public class MainForm
 		
 		game = Game.getInstance();
 		game.setSize(20, 20);
-		imagePnael = new ImagePanel(game.Field);
+		imagePnael = new ImagePanel(game.Field,game);
 		
 		gameMenu.add(createItem);
 		gameMenu.addSeparator();

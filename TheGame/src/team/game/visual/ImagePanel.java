@@ -3,13 +3,18 @@ package team.game.visual;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import team.game.data.FigureType;
+import team.game.data.Game;
 import team.game.data.GameField;
 import team.game.data.LocalPlayer;
 /**
@@ -24,6 +29,8 @@ public class ImagePanel extends JPanel
 	//int CellWidth;//delete
 	//int CellHeight;//delete
 	GameField gameField;
+	
+	Game gaga;//Временная шняга....
 	
 	private Image green;
 	private Image blue;
@@ -45,11 +52,12 @@ public class ImagePanel extends JPanel
 	/**
 	 * загрузка картинок в конструкторе
 	 * @param refFormCells ссылка на масив Cell-сов
+	 * @param ga - временная шняга.....
 	 */
-	ImagePanel(GameField _gameField)
+	ImagePanel(GameField _gameField,Game ga)
 	{
 		gameField = _gameField;
-		
+		this.gaga=ga;
 		try 
 		{
 			green=ImageIO.read(new File("resources\\Green.jpg"));
@@ -74,6 +82,56 @@ public class ImagePanel extends JPanel
 			//e.printStackTrace();
 			System.out.println("Эпик фэйл пикчер нот фаунд :)");
 		}
+		//Добавление клика...
+		this.addMouseListener(
+				new MouseAdapter() 
+				{
+					@Override
+					public void mousePressed(MouseEvent e) 
+					{
+						//super.mousePressed(e); хз итп....
+						int cellWidth=getWidth()/gameField.countX;
+						int cellHeight=getHeight()/gameField.countY;
+						int i=e.getY()/cellHeight;
+						int j=e.getX()/cellWidth;
+						LocalPlayer o=gameField.getCell(i, j).getOwner();
+						LocalPlayer a=gameField.getCell(i, j).getActor();
+						Random random=new Random();
+						if (e.getModifiers()==InputEvent.BUTTON1_MASK)
+						{
+							if (o==null)
+								gameField.getCell(i, j).setOwner(gaga.getPlayer(0));
+							else
+							{
+								if (o.equals(gaga.players[0]))
+									gameField.getCell(i, j).setOwner(gaga.getPlayer(1));
+								if (o.equals(gaga.players[1]))
+									gameField.getCell(i, j).setOwner(gaga.getPlayer(2));
+								if (o.equals(gaga.players[2]))
+									gameField.getCell(i, j).setOwner(gaga.getPlayer(3));
+								if (o.equals(gaga.players[3]))
+									gameField.getCell(i, j).setOwner(null);
+							}
+						}
+						else
+						//if (e.getModifiers()==InputEvent.BUTTON3_MASK)
+							if (a==null)
+								gameField.getCell(i, j).setActor(gaga.getPlayer(0));
+							else
+							{
+								if (a.equals(gaga.players[0]))
+									gameField.getCell(i, j).setActor(gaga.getPlayer(1));
+								if (a.equals(gaga.players[1]))
+									gameField.getCell(i, j).setActor(gaga.getPlayer(2));
+								if (a.equals(gaga.players[2]))
+									gameField.getCell(i, j).setActor(gaga.getPlayer(3));
+								if (a.equals(gaga.players[3]))
+									gameField.getCell(i, j).setActor(null);
+							}	
+						repaint();
+					}
+				}
+				);
 	}
 	/**
 	 * Прорисовка Игрового поля
@@ -117,6 +175,7 @@ public class ImagePanel extends JPanel
 								break;
 							case FigureType.YELLOW_CIRCLE:
 								image=yellow;
+								break;
 						}
 					}
 					else//actor!=null
