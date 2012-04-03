@@ -68,7 +68,7 @@ public class GameProcessor {
 	public GameProcessor( Game game) {this.game = game;}
 	public boolean ProcessStep(LocalPlayer player, Point xy){
 		Tree TRcell= new Tree(player, xy);
-		if(TRcell.searhLife()){
+		if(TRcell.searhLife()&& game.Field.getCell(xy.x, xy.y).getActor()==null){
 			game.Field.getCell(xy.x, xy.y).setActor(game.Field.getCell(xy.x, xy.y).getOwner());
 			game.Field.getCell(xy.x, xy.y).setOwner(player);
 			return true;
