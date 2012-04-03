@@ -29,8 +29,9 @@ public class ImagePanel extends JPanel
 	//int CellWidth;//delete
 	//int CellHeight;//delete
 	GameField gameField;
+	Game game;
 	
-	Game gaga;//¬ременна€ шн€га....
+	private int countSteps=0;
 	
 	private Image green;
 	private Image blue;
@@ -54,10 +55,12 @@ public class ImagePanel extends JPanel
 	 * @param refFormCells ссылка на масив Cell-сов
 	 * @param ga - временна€ шн€га.....
 	 */
-	ImagePanel(GameField _gameField,Game ga)
+	ImagePanel(Game _game)
 	{
-		gameField = _gameField;
-		this.gaga=ga;
+		//gameField = _gameField;
+		//this.gaga=ga;
+		this.game=_game;
+		this.gameField=_game.Field;
 		try 
 		{
 			green=ImageIO.read(new File("resources\\Green.jpg"));
@@ -96,36 +99,17 @@ public class ImagePanel extends JPanel
 						int j=e.getX()/cellWidth;
 						LocalPlayer o=gameField.getCell(i, j).getOwner();
 						LocalPlayer a=gameField.getCell(i, j).getActor();
-						Random random=new Random();
-						if (e.getModifiers()==InputEvent.BUTTON1_MASK)
-						{
-							if (o==null)
-								gameField.getCell(i, j).setOwner(gaga.getPlayer(0));
-							else
-							{
-								if (o.equals(gaga.players[0]))
-									gameField.getCell(i, j).setOwner(gaga.getPlayer(1));
-								if (o.equals(gaga.players[1]))
-									gameField.getCell(i, j).setOwner(gaga.getPlayer(2));
-								if (o.equals(gaga.players[2]))
-									gameField.getCell(i, j).setOwner(gaga.getPlayer(3));
-								if (o.equals(gaga.players[3]))
-									gameField.getCell(i, j).setOwner(null);
-							}
-						}
-						else
-						//if (e.getModifiers()==InputEvent.BUTTON3_MASK)
 							if (a==null)
-								gameField.getCell(i, j).setActor(gaga.getPlayer(0));
+								gameField.getCell(i, j).setActor(game.getPlayer(0));
 							else
 							{
-								if (a.equals(gaga.players[0]))
-									gameField.getCell(i, j).setActor(gaga.getPlayer(1));
-								if (a.equals(gaga.players[1]))
-									gameField.getCell(i, j).setActor(gaga.getPlayer(2));
-								if (a.equals(gaga.players[2]))
-									gameField.getCell(i, j).setActor(gaga.getPlayer(3));
-								if (a.equals(gaga.players[3]))
+								if (a.equals(game.players[0]))
+									gameField.getCell(i, j).setActor(game.getPlayer(1));
+								if (a.equals(game.players[1]))
+									gameField.getCell(i, j).setActor(game.getPlayer(2));
+								if (a.equals(game.players[2]))
+									gameField.getCell(i, j).setActor(game.getPlayer(3));
+								if (a.equals(game.players[3]))
 									gameField.getCell(i, j).setActor(null);
 							}	
 						repaint();

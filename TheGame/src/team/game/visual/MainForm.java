@@ -104,7 +104,7 @@ public class MainForm
 		
 		game = Game.getInstance();
 		game.setSize(20, 20);
-		imagePnael = new ImagePanel(game.Field,game);
+		imagePnael = new ImagePanel(game);
 		
 		gameMenu.add(createItem);
 		gameMenu.addSeparator();
@@ -193,13 +193,10 @@ public class MainForm
 								        
 						game.setPlayers(player1, player2, player3, player4);
 						//изначальные клетки игроков
-						game.Field.getCell(0, 0).setOwner(game.getPlayer(0));
-						game.Field.getCell(3, 3).setOwner(game.getPlayer(1));
-						game.Field.getCell(3, 4).setOwner(game.getPlayer(2));
-						game.Field.getCell(5, 5).setOwner(game.getPlayer(3));
-						game.Field.getCell(5, 5).setActor(game.getPlayer(0));
-						game.Field.getCell(10, 5).setOwner(game.getPlayer(3));
-						game.Field.getCell(10, 7).setOwner(game.getPlayer(3));
+						game.Field.getCell(1, 0).setOwner(game.getPlayer(0));
+						game.Field.getCell(1, 1).setOwner(game.getPlayer(1));
+						game.Field.getCell(1, 2).setOwner(game.getPlayer(2));
+						game.Field.getCell(1, 3).setOwner(game.getPlayer(3));
 					}
 				});
 	}
@@ -267,12 +264,16 @@ public class MainForm
 		panelFromPlayer.setPreferredSize(new Dimension(300, 200));
 		
 		panelFromPlayer.add(new JLabel("Игрок №1:"));
+		player1NameFromLocalgame.setText("pl1");
 		panelFromPlayer.add(player1NameFromLocalgame);
 		panelFromPlayer.add(new JLabel("Игрок №2:"));
+		player2NameFromLocalgame.setText("pl2");
 		panelFromPlayer.add(player2NameFromLocalgame);
 		panelFromPlayer.add(new JLabel("Игрок №3:"));
+		player3NameFromLocalgame.setText("pl3");
 		panelFromPlayer.add(player3NameFromLocalgame);
-		panelFromPlayer.add(new JLabel("Игрок №4:"));		
+		panelFromPlayer.add(new JLabel("Игрок №4:"));
+		player4NameFromLocalgame.setText("pl4");
 		panelFromPlayer.add(player4NameFromLocalgame);
 		
 		JPanel panelFromLoacalGame=new JPanel();
