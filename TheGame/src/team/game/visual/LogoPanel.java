@@ -1,5 +1,6 @@
 package team.game.visual;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -17,7 +18,7 @@ public class LogoPanel extends JPanel
 	private Image image;
 	public LogoPanel() 
 	{
-		//this.setBackground(Color.black);
+		this.setBackground(Color.black);
 		try 
 		{
 			image=ImageIO.read(new File("resources\\logo3_3_ligth.jpg"));
