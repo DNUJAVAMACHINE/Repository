@@ -193,10 +193,13 @@ public class MainForm
 								        
 						game.setPlayers(player1, player2, player3, player4);
 						//изначальные клетки игроков
-						//game.Field.getCell(0, 0).setActor();
-						//game.Field.getCell(3, 3).setActor();
-						//game.Field.getCell(3, 4).setActor();
-						//game.Field.getCell(5, 5).setActor();
+						game.Field.getCell(0, 0).setOwner(game.getPlayer(0));
+						game.Field.getCell(3, 3).setOwner(game.getPlayer(1));
+						game.Field.getCell(3, 4).setOwner(game.getPlayer(2));
+						game.Field.getCell(5, 5).setOwner(game.getPlayer(3));
+						game.Field.getCell(5, 5).setActor(game.getPlayer(0));
+						game.Field.getCell(10, 5).setOwner(game.getPlayer(3));
+						game.Field.getCell(10, 7).setOwner(game.getPlayer(3));
 					}
 				});
 	}
