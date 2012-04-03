@@ -181,7 +181,7 @@ public class ImagePanel extends JPanel
 						}
 					}
 					//brush image;
-					g.drawImage(image,i*cellWidth,j*cellWidth,null);
+					g.drawImage(image,j*cellWidth,i*cellHeight,cellWidth,cellHeight,null);
 				}
 			}
 	}
