@@ -38,6 +38,10 @@ public class Game {
 	public static Game getInstance() {
 		return game;
 	}
+	public int getIndexCurrent(){
+		return indexCurrent;
+	}
+	
 	/**
 	 * передача хода следуещему игроку
 	 */

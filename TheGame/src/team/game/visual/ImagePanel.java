@@ -99,7 +99,7 @@ public class ImagePanel extends JPanel
 						int j=e.getX()/cellWidth;
 						LocalPlayer o=gameField.getCell(i, j).getOwner();
 						LocalPlayer a=gameField.getCell(i, j).getActor();
-							if (a==null)
+							/*if (a==null)
 								gameField.getCell(i, j).setActor(game.getPlayer(0));
 							else
 							{
@@ -111,7 +111,19 @@ public class ImagePanel extends JPanel
 									gameField.getCell(i, j).setActor(game.getPlayer(3));
 								if (a.equals(game.players[3]))
 									gameField.getCell(i, j).setActor(null);
-							}	
+							}*/
+						if( o == null)
+							gameField.getCell(i, j).setOwner(game.getPlayer( game.getIndexCurrent()));
+						else{
+							if( (game.getPlayer( game.getIndexCurrent()) != o)&& a== null){
+								gameField.getCell(i, j).setActor(o);
+								gameField.getCell(i, j).setOwner(game.getPlayer( game.getIndexCurrent()));
+							}
+							/*if( (game.getPlayer( game.getIndexCurrent()) != o)&& a != null){
+								gameField.getCell(i, j).setActor(null);
+								gameField.getCell(i, j).setOwner(o);
+							}*/
+						}
 						repaint();
 					}
 				}

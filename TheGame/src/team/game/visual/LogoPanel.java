@@ -21,7 +21,7 @@ public class LogoPanel extends JPanel
 		this.setBackground(Color.black);
 		try 
 		{
-			image=ImageIO.read(new File("resources\\logo3_3_ligth.jpg"));
+			image=ImageIO.read(new File("resources\\logo3_2_ligth.jpg"));
 		} 
 		catch (IOException e) 
 		{
