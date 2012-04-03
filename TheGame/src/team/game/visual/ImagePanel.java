@@ -3,6 +3,7 @@ package team.game.visual;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -49,6 +50,7 @@ public class ImagePanel extends JPanel
 	private Image redKillsYellow;
 	private Image yellowKillsGreen;
 	private Image yellowKillsRed;
+	private int ch=1;
 
 	/**
 	 * загрузка картинок в конструкторе
@@ -97,21 +99,9 @@ public class ImagePanel extends JPanel
 						int cellHeight=getHeight()/gameField.countY;
 						int i=e.getY()/cellHeight;
 						int j=e.getX()/cellWidth;
-						LocalPlayer o=gameField.getCell(i, j).getOwner();
+						/*LocalPlayer o=gameField.getCell(i, j).getOwner();
 						LocalPlayer a=gameField.getCell(i, j).getActor();
-							/*if (a==null)
-								gameField.getCell(i, j).setActor(game.getPlayer(0));
-							else
-							{
-								if (a.equals(game.players[0]))
-									gameField.getCell(i, j).setActor(game.getPlayer(1));
-								if (a.equals(game.players[1]))
-									gameField.getCell(i, j).setActor(game.getPlayer(2));
-								if (a.equals(game.players[2]))
-									gameField.getCell(i, j).setActor(game.getPlayer(3));
-								if (a.equals(game.players[3]))
-									gameField.getCell(i, j).setActor(null);
-							}*/
+						
 						if( o == null)
 							gameField.getCell(i, j).setOwner(game.getPlayer( game.getIndexCurrent()));
 						else{
@@ -119,10 +109,25 @@ public class ImagePanel extends JPanel
 								gameField.getCell(i, j).setActor(o);
 								gameField.getCell(i, j).setOwner(game.getPlayer( game.getIndexCurrent()));
 							}
-							/*if( (game.getPlayer( game.getIndexCurrent()) != o)&& a != null){
-								gameField.getCell(i, j).setActor(null);
-								gameField.getCell(i, j).setOwner(o);
-							}*/
+						}*/
+						Point pt = new Point();
+						pt.x=i; pt.y=j;
+						if(game.Processor.GameEnd())
+						{
+							if(game.Processor.existenceMove(game.getPlayer( game.getIndexCurrent())))
+							{
+								if(game.Processor.ProcessStep(game.getPlayer( game.getIndexCurrent()), pt))
+									ch++;
+								if(ch>3){
+									ch=1;
+									game.nextPlayer();
+								}
+							}
+							else
+							{
+								ch=1;
+								game.nextPlayer();
+							}
 						}
 						repaint();
 					}
