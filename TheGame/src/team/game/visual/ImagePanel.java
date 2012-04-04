@@ -28,7 +28,7 @@ public class ImagePanel extends JPanel
 {
 	//int CellWidth;//delete
 	//int CellHeight;//delete
-	GameField gameField;
+	//GameField gameField;
 	Game game;
 	
 	private int countSteps=0;
@@ -63,7 +63,7 @@ public class ImagePanel extends JPanel
 		//this.gaga=ga;
 		this.positionGame=positionGame;
 		this.game=_game;
-		this.gameField=_game.Field;
+		//this.gameField=_game.Field;
 		this.setBackground(new Color(35,35,35));
 		try 
 		{
@@ -97,8 +97,8 @@ public class ImagePanel extends JPanel
 					public void mousePressed(MouseEvent e) 
 					{
 						//super.mousePressed(e); хз итп....
-						int cellWidth=getWidth()/gameField.countX;
-						int cellHeight=getHeight()/gameField.countY;
+						int cellWidth=getWidth()/game.Field.countX;
+						int cellHeight=getHeight()/game.Field.countY;
 						int i=e.getY()/cellHeight;
 						int j=e.getX()/cellWidth;
 						/*LocalPlayer o=gameField.getCell(i, j).getOwner();
@@ -151,10 +151,14 @@ public class ImagePanel extends JPanel
 	@Override
 	public void paint(Graphics g) 
 	{
+		//так надо! просто больше негде... та ваще здесь супер... 
+		if (game.getPlayer( game.getIndexCurrent())!=null)
+			this.positionGame.setText("ход " + game.getPlayer( game.getIndexCurrent()).name+" - "+game.getPlayer( game.getIndexCurrent()).getTypeToString()+" | Осталось ходов :"+(4-ch));
+		
 		super.paint(g);
 		int i,j;
-		int countWidth=gameField.countX;
-		int countHeight=gameField.countY;
+		int countWidth=game.Field.countX;
+		int countHeight=game.Field.countY;
 		int cellWidth=getWidth()/countWidth;
 		int cellHeight=getHeight()/countHeight;
 		
@@ -164,12 +168,12 @@ public class ImagePanel extends JPanel
 		for (i=0;i<countWidth+1;++i)
 			g.drawLine(i*cellWidth,0,i*cellWidth,countHeight*cellHeight);
 		
-		for (i=0;i<gameField.countY;++i)
-			for (j=0;j<gameField.countX;++j)//if-ы не пределовать!
+		for (i=0;i<game.Field.countY;++i)
+			for (j=0;j<game.Field.countX;++j)//if-ы не пределовать!
 			{
 				Image image=null;
-				LocalPlayer owner=gameField.getCell(i, j).getOwner();
-				LocalPlayer actor=gameField.getCell(i, j).getActor();
+				LocalPlayer owner=game.Field.getCell(i, j).getOwner();
+				LocalPlayer actor=game.Field.getCell(i, j).getActor();
 				if (owner!=null)
 				{
 					if (actor==null)
@@ -252,7 +256,7 @@ public class ImagePanel extends JPanel
 						}
 					}
 					//brush image;
-					g.drawImage(image,j*cellWidth,i*cellHeight,cellWidth+1,cellHeight+1,null);
+					g.drawImage(image,j*cellWidth+1,i*cellHeight+1,cellWidth-1,cellHeight-1,null);
 				}
 			}
 	}
