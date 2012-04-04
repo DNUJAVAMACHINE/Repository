@@ -153,10 +153,10 @@ public class ImagePanel extends JPanel
 		for (i=0;i<countWidth+1;++i)
 			g.drawLine(i*cellWidth,0,i*cellWidth,countHeight*cellHeight);
 		
-		Image image=null;
 		for (i=0;i<gameField.countY;++i)
 			for (j=0;j<gameField.countX;++j)//if-ы не пределовать!
 			{
+				Image image=null;
 				LocalPlayer owner=gameField.getCell(i, j).getOwner();
 				LocalPlayer actor=gameField.getCell(i, j).getActor();
 				if (owner!=null)
