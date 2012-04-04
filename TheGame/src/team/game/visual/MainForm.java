@@ -72,10 +72,10 @@ public class MainForm
 	private JTextField playerMessageFromCreatePanel=new JTextField(20);//Поле сообщения сгрока
 	private JTextField playerMessageFromConnectPanel=new JTextField(20);//--||--
 	private JTextField playerMessageFromFieldPanel=new JTextField(20);//--||--
-	private JTextField player1NameFromLocalgame=new JTextField(10);//Имена игроков в локальной игре...
-	private JTextField player2NameFromLocalgame=new JTextField(10);
-	private JTextField player3NameFromLocalgame=new JTextField(10);
-	private JTextField player4NameFromLocalgame=new JTextField(10);
+	private JTextField player1NameFromLocalgame=new JTextField(20);//Имена игроков в локальной игре...
+	private JTextField player2NameFromLocalgame=new JTextField(20);
+	private JTextField player3NameFromLocalgame=new JTextField(20);
+	private JTextField player4NameFromLocalgame=new JTextField(20);
 	
 	private JLabel stateFromConnectpanel=new JLabel();//Состояние игрока при подключении//////////////////проверит положение!
 	private JLabel stateFromFieldPanel=new JLabel("Starting...");//состояние игрока (сечас ходит игрок №1...)
@@ -263,18 +263,41 @@ public class MainForm
 		JPanel panelFromPlayer=new JPanel(new GridLayout(4, 2));
 		panelFromPlayer.setPreferredSize(new Dimension(300, 200));
 		
-		panelFromPlayer.add(new JLabel("Игрок №1:"));
+		JPanel panelplayer1NameFromLocalgame=new JPanel();// Андрей, НЕ ТРОГАТЬ!
+		JPanel panelplayer2NameFromLocalgame=new JPanel();
+		JPanel panelplayer3NameFromLocalgame=new JPanel();
+		JPanel panelplayer4NameFromLocalgame=new JPanel();
+		
+		JPanel panelFromPlayer1Lbael=new JPanel();
+		JPanel panelFromPlayer2Lbael=new JPanel();
+		JPanel panelFromPlayer3Lbael=new JPanel();
+		JPanel panelFromPlayer4Lbael=new JPanel();
+		
+		panelFromPlayer1Lbael.add(new JLabel("Игрок №1:"));
+		panelFromPlayer2Lbael.add(new JLabel("Игрок №2:"));
+		panelFromPlayer3Lbael.add(new JLabel("Игрок №3:"));
+		panelFromPlayer4Lbael.add(new JLabel("Игрок №4:"));
+		
+		panelFromPlayer.add(panelFromPlayer1Lbael);
 		player1NameFromLocalgame.setText("pl1");
-		panelFromPlayer.add(player1NameFromLocalgame);
-		panelFromPlayer.add(new JLabel("Игрок №2:"));
+		player1NameFromLocalgame.setPreferredSize(new Dimension(0,30));
+		panelplayer1NameFromLocalgame.add(player1NameFromLocalgame);
+		panelFromPlayer.add(panelplayer1NameFromLocalgame);
+		panelFromPlayer.add(panelFromPlayer2Lbael);
 		player2NameFromLocalgame.setText("pl2");
-		panelFromPlayer.add(player2NameFromLocalgame);
-		panelFromPlayer.add(new JLabel("Игрок №3:"));
+		player2NameFromLocalgame.setPreferredSize(new Dimension(0,30));
+		panelplayer2NameFromLocalgame.add(player2NameFromLocalgame);
+		panelFromPlayer.add(panelplayer2NameFromLocalgame);
+		panelFromPlayer.add(panelFromPlayer3Lbael);
 		player3NameFromLocalgame.setText("pl3");
-		panelFromPlayer.add(player3NameFromLocalgame);
-		panelFromPlayer.add(new JLabel("Игрок №4:"));
+		player3NameFromLocalgame.setPreferredSize(new Dimension(0,30));
+		panelplayer3NameFromLocalgame.add(player3NameFromLocalgame);
+		panelFromPlayer.add(panelplayer3NameFromLocalgame);
+		panelFromPlayer.add(panelFromPlayer4Lbael);
 		player4NameFromLocalgame.setText("pl4");
-		panelFromPlayer.add(player4NameFromLocalgame);
+		player4NameFromLocalgame.setPreferredSize(new Dimension(0,30));
+		panelplayer4NameFromLocalgame.add(player4NameFromLocalgame);
+		panelFromPlayer.add(panelplayer4NameFromLocalgame);
 		
 		JPanel panelFromLoacalGame=new JPanel();
 		panelFromLoacalGame.setLayout(new BorderLayout());
