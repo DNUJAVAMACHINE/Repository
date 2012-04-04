@@ -52,6 +52,8 @@ public class MainForm
 	private LogoPanel emptyPanel=new LogoPanel();//////////////////хз панель!(не удалять)
 	private JPanel createPanel=new JPanel();//Панель для создания новой игры
 	private JPanel connectPanel=new JPanel();//Панель для подключения к игре
+	private JPanel bottomPanelFromLocalGame=new JPanel();//нужна для того чтоб можно при старте локальной игры 
+														 //спрятать чат ч все что с ним связанно.
 	
 	private JSpinner countPlayer;//Количество игроков 2-4
 	private JSpinner sizeField;//Размер Поля игры 
@@ -197,6 +199,9 @@ public class MainForm
 						game.Field.getCell(game.Field.getCountX()-1, game.Field.getCountY()-1).setOwner(game.getPlayer(1));
 						game.Field.getCell(game.Field.getCountX()-1, 0).setOwner(game.getPlayer(2));
 						game.Field.getCell(0, 0).setOwner(game.getPlayer(3));
+						//спрячем чат и тп..
+						gameFieldPanel.remove(bottomPanelFromLocalGame);
+						
 					}
 				});
 	}
@@ -436,17 +441,16 @@ public class MainForm
 	  */
 	private void SetComponentsFromFieldPanel()
 	{
-		JPanel bottomPanel=new JPanel();
 		//JPanel centerPanel=new JPanel();
 		JPanel topPanel=new JPanel();
 		
-		bottomPanel.setLayout(new BorderLayout());
+		bottomPanelFromLocalGame.setLayout(new BorderLayout());
 		playerMessageFromFieldPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		bottomPanel.add("Center",playerMessageFromFieldPanel);
-		bottomPanel.add("East",buttomSendMessageFromFieldPanel);
+		bottomPanelFromLocalGame.add("Center",playerMessageFromFieldPanel);
+		bottomPanelFromLocalGame.add("East",buttomSendMessageFromFieldPanel);
 		chatFromFieldPanel.setPreferredSize(new Dimension(0,90));
 		chatFromFieldPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		bottomPanel.add("North",chatFromFieldPanel);
+		bottomPanelFromLocalGame.add("North",chatFromFieldPanel);
 		
 		topPanel.setLayout(new BorderLayout());
 		topPanel.add("West",stateFromFieldPanel);
@@ -463,7 +467,7 @@ public class MainForm
 		gameFieldPanel.setLayout(new BorderLayout());
 		gameFieldPanel.add("North",topPanel);
 		gameFieldPanel.add("Center",imagePnael);
-		gameFieldPanel.add("South",bottomPanel);
+		gameFieldPanel.add("South",bottomPanelFromLocalGame);
 	}
 	
 	
