@@ -4,7 +4,7 @@ import team.game.logic.GameProcessor;
 
 /**
  * 
- * @author Виталя & AWESOME (но больше Виталя :))
+ * @author Виталя & AWESOME & Юрась (пару сторк, зато КАКИХ!)(но больше Виталя :))
  *
  */
 public class Game {
@@ -51,6 +51,19 @@ public class Game {
 			++indexCurrent;
 		else
 			indexCurrent = 0;
+	}
+	/**
+	 * Нужен для получения ссылки на первого игрока для изначального написания кто шас ходит...
+	 * @return 
+	 */
+	public int getFirstPlayer()
+	{
+		int rez=-1;
+		if (players!=null)
+			for (int i=0;i<players.length;++i)
+				if (rez==-1&&players[i]!=null)
+					rez=i;
+		return rez;		
 	}
 	/**
 	 * задается размер поля countX на countY 
