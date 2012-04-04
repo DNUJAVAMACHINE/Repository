@@ -103,7 +103,7 @@ public class MainForm
 		f.setLocation(scrinSize.width/2-f.getWidth()/2, scrinSize.height/2-f.getHeight()/2);
 		
 		game = Game.getInstance();
-		game.setSize(20, 20);
+		game.setSize(7, 7);
 		imagePnael = new ImagePanel(game, stateFromFieldPanel);
 		
 		gameMenu.add(createItem);
