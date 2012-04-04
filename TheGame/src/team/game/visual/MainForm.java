@@ -303,10 +303,11 @@ public class MainForm
 		panelFromLoacalGame.setLayout(new BorderLayout());
 		
 		JPanel startButtonAndLabel = new JPanel();
+		startButtonAndLabel.setPreferredSize(new Dimension(0,60));
 		buttonStartLocalGame.setPreferredSize(sizeButton);
 		startButtonAndLabel.add(buttonStartLocalGame);
-		startButtonAndLabel.add(new JLabel());
-		startButtonAndLabel.add(new JLabel("<html>Нажмите старт, для начала локальной игры <br> с заданными параметрами."));
+		//startButtonAndLabel.add(new JLabel());
+		//startButtonAndLabel.add(new JLabel("<html>Нажмите старт, для начала <br>локальной игры с заданными <br>параметрами."));
 		
 		panelFromLoacalGame.add(panelFromPlayer, BorderLayout.CENTER);
 		panelFromLoacalGame.add(startButtonAndLabel, BorderLayout.SOUTH);
