@@ -116,27 +116,31 @@ public class ImagePanel extends JPanel
 						}*/
 						Point pt = new Point();
 						pt.x=i; pt.y=j;
-						if(game.Processor.GameEnd())
-						{
-							if(game.Processor.existenceMove(game.getPlayer( game.getIndexCurrent())))
-							{	
-								positionGame.setText("ход " + game.getPlayer( game.getIndexCurrent()).name+" - "+game.getPlayer( game.getIndexCurrent()).getTypeToString());
-								if(game.Processor.ProcessStep(game.getPlayer( game.getIndexCurrent()), pt))
-									ch++;
-								if(ch>3){
+						try {
+							if(game.Processor.GameEnd())
+							{
+								if(game.Processor.existenceMove(game.getPlayer( game.getIndexCurrent())))
+								{	
+									positionGame.setText("ход " + game.getPlayer( game.getIndexCurrent()).name+" - "+game.getPlayer( game.getIndexCurrent()).getTypeToString());
+									if(game.Processor.ProcessStep(game.getPlayer( game.getIndexCurrent()), pt))
+										ch++;
+									if(ch>3){
+										ch=1;
+										game.nextPlayer();
+									}
+								}
+								else
+								{
 									ch=1;
 									game.nextPlayer();
 								}
 							}
-							else
-							{
-								ch=1;
-								game.nextPlayer();
-							}
+
+							else 
+								positionGame.setText("Конец игры!..");
+						} catch (Throwable ex) {
+							ex.printStackTrace();
 						}
-						
-						else 
-							positionGame.setText("Конец игры!..");
 						
 						repaint();
 					}
