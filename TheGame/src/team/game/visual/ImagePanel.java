@@ -63,6 +63,7 @@ public class ImagePanel extends JPanel
 		//this.gaga=ga;
 		this.game=_game;
 		this.gameField=_game.Field;
+		this.setBackground(new Color(25,25,25));
 		try 
 		{
 			green=ImageIO.read(new File("resources\\Green.jpg"));
@@ -147,7 +148,7 @@ public class ImagePanel extends JPanel
 		int cellWidth=getWidth()/countWidth;
 		int cellHeight=getHeight()/countHeight;
 		
-		g.setColor(Color.black);
+		g.setColor(Color.DARK_GRAY);
 		for (i=0;i<countHeight+1;++i)
 			g.drawLine(0,i*cellHeight,cellWidth*countWidth,i*cellHeight);	
 		for (i=0;i<countWidth+1;++i)
