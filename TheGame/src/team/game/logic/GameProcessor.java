@@ -126,4 +126,34 @@ public class GameProcessor {
 		}		
 		return res;
 	}
+	/**
+	 * статистика, возвращает кол. живых + мертвых клеток
+	 * каждого из 4-х игроков, по этому если игрока например 3-го нету,
+	 * то нужно игнорить значени 3-го элемента
+	 * @return
+	 */
+	public int[] Winner(){
+		int[] res = new int[4];
+			for(int i=0; i< game.Field.getCountX(); ++i){
+				for(int j=0; j< game.Field.getCountY();++j){
+					switch (game.Field.getCell(i, j).getOwner().figureType) {
+					case 1:
+						res[0]++;
+						break;
+					case 2:
+						res[1]++;
+						break;
+					case 3:
+						res[2]++;
+						break;
+					case 4:
+						res[3]++;
+						break;
+					default:
+						break;
+					}
+				}
+			}
+		return res;
+	}
 }
