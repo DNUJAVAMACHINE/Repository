@@ -34,4 +34,5 @@ public class LogoPanel extends JPanel
 		super.paint(g);
 		g.drawImage(image,getWidth()/2-500/2,getHeight()/2-500/2,null);
 	}
+	
 }

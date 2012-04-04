@@ -5,4 +5,5 @@ public class FigureType {
 	public static final int GREEN_STRIPS  = 2;
 	public static final int RED_CROSS     = 3;
 	public static final int YELLOW_CIRCLE = 4;
+	
 }

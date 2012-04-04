@@ -51,24 +51,25 @@ public class GameProcessor {
 		}			
 		boolean searhLife(){
 			boolean res = false;
-			for(int i=0; i< BranchesXY.size(); ++i)
-			{
-				if(Branches.get(i).getActor()==null){
-					res = true;
-					break;
+			if(BranchesXY.size()>0)
+				for(int i=0; i< BranchesXY.size(); ++i)
+				{
+					if(Branches.get(i).getActor()==null){
+						res = true;
+						break;
+					}
+					else{
+						Tree tmp=new Tree(player, BranchesXY.get(i));
+						res= tmp.searhLife();
+					}					
 				}
-				else{
-					Tree tmp=new Tree(player, BranchesXY.get(i));
-					tmp.searhLife();
-				}					
-			}
 			return res;
 		}
 	}
 	public GameProcessor( Game game) {this.game = game;}
 	public boolean ProcessStep(LocalPlayer player, Point xy){
 		Tree TRcell= new Tree(player, xy);
-		if(TRcell.searhLife()&& game.Field.getCell(xy.x, xy.y).getActor()==null){
+		if(TRcell.searhLife()&& game.Field.getCell(xy.x, xy.y).getActor()==null && game.Field.getCell(xy.x, xy.y).getOwner() != player){
 			game.Field.getCell(xy.x, xy.y).setActor(game.Field.getCell(xy.x, xy.y).getOwner());
 			game.Field.getCell(xy.x, xy.y).setOwner(player);
 			return true;

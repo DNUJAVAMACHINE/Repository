@@ -14,5 +14,26 @@ public class LocalPlayer extends AbstractPlayer {
 	public void action(int x, int y) {
 		
 	}
+	public String getTypeToString()
+	{
+		String res="";
+		switch (figureType) {
+		case 1:
+			 res= "Голубой квадрат";
+			break;
+		case 2:
+			 res= "Зеленный круг";
+			break;
+		case 3:
+			 res= "Красные полосы ";
+			break;
+		case 4:
+			 res= "Жолтый крестик ";
+			break;
+		default:
+			break;
+		}
+		return res;
+	}
 
 }

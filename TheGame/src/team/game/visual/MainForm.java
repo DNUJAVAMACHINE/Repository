@@ -104,7 +104,7 @@ public class MainForm
 		
 		game = Game.getInstance();
 		game.setSize(20, 20);
-		imagePnael = new ImagePanel(game);
+		imagePnael = new ImagePanel(game, stateFromFieldPanel);
 		
 		gameMenu.add(createItem);
 		gameMenu.addSeparator();
@@ -193,10 +193,10 @@ public class MainForm
 								        
 						game.setPlayers(player1, player2, player3, player4);
 						//изначальные клетки игроков
-						game.Field.getCell(1, 0).setOwner(game.getPlayer(0));
-						game.Field.getCell(1, 1).setOwner(game.getPlayer(1));
-						game.Field.getCell(1, 2).setOwner(game.getPlayer(2));
-						game.Field.getCell(1, 3).setOwner(game.getPlayer(3));
+						game.Field.getCell(0, game.Field.getCountY()-1).setOwner(game.getPlayer(0));
+						game.Field.getCell(game.Field.getCountX()-1, game.Field.getCountY()-1).setOwner(game.getPlayer(1));
+						game.Field.getCell(game.Field.getCountX()-1, 0).setOwner(game.getPlayer(2));
+						game.Field.getCell(0, 0).setOwner(game.getPlayer(3));
 					}
 				});
 	}

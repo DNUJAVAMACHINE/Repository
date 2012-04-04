@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import team.game.data.FigureType;
@@ -51,16 +52,18 @@ public class ImagePanel extends JPanel
 	private Image yellowKillsGreen;
 	private Image yellowKillsRed;
 	private int ch=1;
+	JLabel positionGame;
 
 	/**
 	 * загрузка картинок в конструкторе
 	 * @param refFormCells ссылка на масив Cell-сов
 	 * @param ga - временная шняга.....
 	 */
-	ImagePanel(Game _game)
+	ImagePanel(Game _game, final JLabel positionGame )
 	{
 		//gameField = _gameField;
 		//this.gaga=ga;
+		this.positionGame=positionGame;
 		this.game=_game;
 		this.gameField=_game.Field;
 		this.setBackground(new Color(35,35,35));
@@ -116,7 +119,8 @@ public class ImagePanel extends JPanel
 						if(game.Processor.GameEnd())
 						{
 							if(game.Processor.existenceMove(game.getPlayer( game.getIndexCurrent())))
-							{
+							{	
+								positionGame.setText("ход " + game.getPlayer( game.getIndexCurrent()).name+" - "+game.getPlayer( game.getIndexCurrent()).getTypeToString());
 								if(game.Processor.ProcessStep(game.getPlayer( game.getIndexCurrent()), pt))
 									ch++;
 								if(ch>3){
@@ -130,6 +134,10 @@ public class ImagePanel extends JPanel
 								game.nextPlayer();
 							}
 						}
+						
+						else 
+							positionGame.setText("Конец игры!..");
+						
 						repaint();
 					}
 				}
