@@ -134,8 +134,15 @@ public class ImagePanel extends JPanel
 								}
 							}
 
-							else 
+							else {
+								int[] win = game.Processor.Winner();
 								positionGame.setText("Конец игры!..");
+								for(int l=0; l< 4 ; ++l){
+									if(game.getPlayer(l)!=null){
+										positionGame.setText(" "+game.getPlayer(l).getTypeToString()+":"+win[l]);
+									}
+								}
+							}
 						} catch (Throwable ex) {
 							ex.printStackTrace();
 						}
