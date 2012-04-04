@@ -63,7 +63,7 @@ public class ImagePanel extends JPanel
 		//this.gaga=ga;
 		this.game=_game;
 		this.gameField=_game.Field;
-		this.setBackground(new Color(25,25,25));
+		this.setBackground(new Color(35,35,35));
 		try 
 		{
 			green=ImageIO.read(new File("resources\\Green.jpg"));
@@ -242,7 +242,7 @@ public class ImagePanel extends JPanel
 						}
 					}
 					//brush image;
-					g.drawImage(image,j*cellWidth,i*cellHeight,cellWidth,cellHeight,null);
+					g.drawImage(image,j*cellWidth,i*cellHeight,cellWidth+1,cellHeight+1,null);
 				}
 			}
 	}
