@@ -51,6 +51,7 @@ public class ImagePanel extends JPanel
 	private Image yellowKillsRed;
 	private int ch=1;
 	JLabel positionGame;
+	boolean endGame;
 
 	/**
 	 * загрузка картинок в конструкторе
@@ -112,6 +113,7 @@ public class ImagePanel extends JPanel
 								gameField.getCell(i, j).setOwner(game.getPlayer( game.getIndexCurrent()));
 							}
 						}*/
+						
 						Point pt = new Point();
 						pt.x=i; pt.y=j;
 						try {
@@ -119,7 +121,8 @@ public class ImagePanel extends JPanel
 							{
 								if(game.Processor.existenceMove(game.getPlayer( game.getIndexCurrent())))
 								{	
-									positionGame.setText("ход " + game.getPlayer( game.getIndexCurrent()).name+" - "+game.getPlayer( game.getIndexCurrent()).getTypeToString());
+									endGame=true;
+									//positionGame.setText("ход " + game.getPlayer( game.getIndexCurrent()).name+" - "+game.getPlayer( game.getIndexCurrent()).getTypeToString());
 									if(game.Processor.ProcessStep(game.getPlayer( game.getIndexCurrent()), pt))
 										ch++;
 									if(ch>3){
@@ -135,11 +138,13 @@ public class ImagePanel extends JPanel
 							}
 
 							else {
-								int[] win = game.Processor.Winner();
+								endGame=false;
+								int[] win = new int[4]; 
+								win=game.Processor.Winner();
 								positionGame.setText("Конец игры!..");
 								for(int l=0; l< 4 ; ++l){
 									if(game.getPlayer(l)!=null){
-										positionGame.setText(" "+game.getPlayer(l).getTypeToString()+":"+win[l]);
+										positionGame.setText(positionGame.getText()+ " "+game.getPlayer(l).getTypeToString()+":"+win[l]);
 									}
 								}
 							}
@@ -159,7 +164,7 @@ public class ImagePanel extends JPanel
 	public void paint(Graphics g) 
 	{
 		//так надо! просто больше негде... та ваще здесь супер... 
-		if (game.getPlayer( game.getIndexCurrent())!=null)
+		if (game.getPlayer( game.getIndexCurrent())!=null && endGame)
 			this.positionGame.setText("ход " + game.getPlayer( game.getIndexCurrent()).name+" - "+game.getPlayer( game.getIndexCurrent()).getTypeToString()+" | Осталось ходов :"+(4-ch));
 		
 		super.paint(g);
