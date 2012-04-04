@@ -1,6 +1,7 @@
 package team.game.visual;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -15,7 +16,6 @@ import javax.swing.JPanel;
 
 import team.game.data.FigureType;
 import team.game.data.Game;
-import team.game.data.GameField;
 import team.game.data.LocalPlayer;
 /**
  * Прорисовка графич компонент
@@ -29,6 +29,7 @@ public class ImagePanel extends JPanel
 	//int CellWidth;//delete
 	//int CellHeight;//delete
 	//GameField gameField;
+	
 	Game game;
 	
 	private int countSteps=0;
@@ -52,6 +53,8 @@ public class ImagePanel extends JPanel
 	private int ch=1;
 	JLabel positionGame;
 	boolean endGame;
+	boolean inStart=true;//для написания имени первого игрока в самом начале игры
+	boolean showNextPlaerInDrawinfPanel=false;//кидается в тру и при прорисовке произойдет вывод имени след игрока 8)
 
 	/**
 	 * загрузка картинок в конструкторе
@@ -94,25 +97,40 @@ public class ImagePanel extends JPanel
 		this.addMouseListener(
 				new MouseAdapter() 
 				{
+					//После отжатия миши создаст новый поток для прорисовек сообщения о смене игрока.
+					//зачем новый просто прорисовка сообщения сотанавливает выполнение потока на пвру секунд
+					//и клацну при этом на поле переменная showNextPlaerInDrawinfPanel кинется в фолс
+					//и надпись исчезнет.
+					public void mouseReleased(MouseEvent e) {
+						
+						if (showNextPlaerInDrawinfPanel&&endGame)
+						{
+							//обявление нового потока
+							Thread tread=new Thread(new Runnable() 
+							{
+								public void run() 
+								{
+									if (showNextPlaerInDrawinfPanel&&endGame)
+									{
+										if (game.getPlayer(game.getIndexCurrent())!=null)
+											showStepNexPlayer(game.getPlayer(game.getIndexCurrent()).name);
+										showNextPlaerInDrawinfPanel=false;
+										repaint();
+									}
+								}
+							});
+							tread.start();//запуск нового потока.
+						}
+					};
 					@Override
 					public void mousePressed(MouseEvent e) 
 					{
+						showNextPlaerInDrawinfPanel=false;
 						//super.mousePressed(e); хз итп....
 						int cellWidth=getWidth()/game.Field.countX;
 						int cellHeight=getHeight()/game.Field.countY;
 						int i=e.getY()/cellHeight;
 						int j=e.getX()/cellWidth;
-						/*LocalPlayer o=gameField.getCell(i, j).getOwner();
-						LocalPlayer a=gameField.getCell(i, j).getActor();
-						
-						if( o == null)
-							gameField.getCell(i, j).setOwner(game.getPlayer( game.getIndexCurrent()));
-						else{
-							if( (game.getPlayer( game.getIndexCurrent()) != o)&& a== null){
-								gameField.getCell(i, j).setActor(o);
-								gameField.getCell(i, j).setOwner(game.getPlayer( game.getIndexCurrent()));
-							}
-						}*/
 						
 						Point pt = new Point();
 						pt.x=i; pt.y=j;
@@ -128,12 +146,14 @@ public class ImagePanel extends JPanel
 									if(ch>3){
 										ch=1;
 										game.nextPlayer();
+										showNextPlaerInDrawinfPanel=true;
 									}
 								}
 								else
 								{
 									ch=1;
 									game.nextPlayer();
+									showNextPlaerInDrawinfPanel=true;
 								}
 							}
 
@@ -163,9 +183,16 @@ public class ImagePanel extends JPanel
 	@Override
 	public void paint(Graphics g) 
 	{
-		//так надо! просто больше негде... та ваще здесь супер... 
-		if (game.getPlayer( game.getIndexCurrent())!=null && endGame)
-			this.positionGame.setText("ход " + game.getPlayer( game.getIndexCurrent()).name+" - "+game.getPlayer( game.getIndexCurrent()).getTypeToString()+" | Осталось ходов :"+(4-ch));
+		//так надо! просто больше негде... та ваще здесь супер...  не трогать...
+		if (inStart)
+		{
+			inStart=false;
+			if (game.getPlayer( game.getIndexCurrent())!=null)
+				this.positionGame.setText("ход " + game.getPlayer( game.getIndexCurrent()).name+" - "+game.getPlayer( game.getIndexCurrent()).getTypeToString()+" | Осталось ходов :"+(4-ch));
+		}
+		else
+			if (game.getPlayer( game.getIndexCurrent())!=null && endGame)
+				this.positionGame.setText("ход " + game.getPlayer( game.getIndexCurrent()).name+" - "+game.getPlayer( game.getIndexCurrent()).getTypeToString()+" | Осталось ходов :"+(4-ch));
 		
 		super.paint(g);
 		int i,j;
@@ -271,5 +298,30 @@ public class ImagePanel extends JPanel
 					g.drawImage(image,j*cellWidth+1,i*cellHeight+1,cellWidth-1,cellHeight-1,null);
 				}
 			}
+		//Создание нового потока для прорисовки след игрока при смене игроков...
+		
+		
+	}
+	/**
+	 * Временная задержка и отображ имени след игрока при смене игроков...
+	 * Автор Волченко Юрий Константинович 8)
+	 * @param playerName
+	 */
+	private void showStepNexPlayer(String playerName)
+	{
+		Graphics graphics=getGraphics();
+		int centerX=this.getWidth()/2;
+		int centerY=this.getHeight()/2;
+		graphics.setColor(Color.LIGHT_GRAY);
+		Font f=new Font("Monospaced", Font.ITALIC, 65);//размер шрифта не менять.
+		graphics.setFont(f);
+		graphics.drawString(playerName, centerX-(playerName.length()*20), centerY-10);
+		try {
+			Thread.currentThread().sleep(3000);//3 sec.
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Исключение при задержке потока в задержке и отображ имени след игрока при смене игроков");
+		}
 	}
 }
