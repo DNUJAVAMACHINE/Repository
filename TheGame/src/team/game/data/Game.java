@@ -28,11 +28,12 @@ public class Game {
 	 * @param names имена игроков
 	 */
 	public void setPlayers(String... names) {
+		for (int i = 0; i < 4; ++i)
+			players[i] = null;
+		
 		for (int i = 0; i < names.length && i < 4; ++i)
 			if (names[i] != null)
 				players[i] = new LocalPlayer(names[i], (i+1));
-			else
-				players[i] = null;
 	}
 	
 	public static Game getInstance() {
