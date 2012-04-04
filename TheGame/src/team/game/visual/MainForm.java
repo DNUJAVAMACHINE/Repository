@@ -97,7 +97,7 @@ public class MainForm
 	public MainForm()
 	{
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(500, 575);
+		f.setSize(525, 575);
 		f.setMinimumSize(new Dimension(500,300));
 		Dimension scrinSize=Toolkit.getDefaultToolkit().getScreenSize();
 		f.setLocation(scrinSize.width/2-f.getWidth()/2, scrinSize.height/2-f.getHeight()/2);
