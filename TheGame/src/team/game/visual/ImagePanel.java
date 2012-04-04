@@ -63,6 +63,7 @@ public class ImagePanel extends JPanel
 		//this.gaga=ga;
 		this.game=_game;
 		this.gameField=_game.Field;
+		this.setBackground(new Color(35,35,35));
 		try 
 		{
 			green=ImageIO.read(new File("resources\\Green.jpg"));
@@ -147,16 +148,16 @@ public class ImagePanel extends JPanel
 		int cellWidth=getWidth()/countWidth;
 		int cellHeight=getHeight()/countHeight;
 		
-		g.setColor(Color.black);
+		g.setColor(Color.DARK_GRAY);
 		for (i=0;i<countHeight+1;++i)
 			g.drawLine(0,i*cellHeight,cellWidth*countWidth,i*cellHeight);	
 		for (i=0;i<countWidth+1;++i)
 			g.drawLine(i*cellWidth,0,i*cellWidth,countHeight*cellHeight);
 		
-		Image image=null;
 		for (i=0;i<gameField.countY;++i)
 			for (j=0;j<gameField.countX;++j)//if-ы не пределовать!
 			{
+				Image image=null;
 				LocalPlayer owner=gameField.getCell(i, j).getOwner();
 				LocalPlayer actor=gameField.getCell(i, j).getActor();
 				if (owner!=null)
@@ -241,7 +242,7 @@ public class ImagePanel extends JPanel
 						}
 					}
 					//brush image;
-					g.drawImage(image,j*cellWidth,i*cellHeight,cellWidth,cellHeight,null);
+					g.drawImage(image,j*cellWidth,i*cellHeight,cellWidth+1,cellHeight+1,null);
 				}
 			}
 	}
