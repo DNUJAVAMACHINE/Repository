@@ -88,8 +88,8 @@ public class MainForm
 	private Dimension sizeButton=new Dimension(110,30);
 	
 	
-	private ImageIcon volumeImageDisable=new ImageIcon("resources\\volumeDisable2.jpg");
-	private ImageIcon volumeImageEanble=new ImageIcon("resources\\volumeEnable2.jpg");
+	private ImageIcon volumeImageDisable=new ImageIcon("resources\\volumeDisable3.jpg");
+	private ImageIcon volumeImageEanble=new ImageIcon("resources\\volumeEnable3.jpg");
 	private JButton buttonVolume=new JButton(volumeImageDisable);
 	private JSlider volume=new JSlider(JSlider.HORIZONTAL,0,99,0);//Регулятор звука.... 
 	private boolean volumeEnable=false;//тру есть звук, фалс... 
