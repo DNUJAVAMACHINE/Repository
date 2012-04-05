@@ -146,14 +146,22 @@ public class ImagePanel extends JPanel
 										ch++;
 									if(ch>3){
 										ch=1;
-										game.nextPlayer();
+										boolean nexPl=false;
+										while(!nexPl){
+											game.nextPlayer();
+											nexPl=game.Processor.existenceMove(game.getPlayer( game.getIndexCurrent()));
+										}
 										showNextPlaerInDrawinfPanel=true;
 									}
 								}
 								else
 								{
 									ch=1;
-									game.nextPlayer();
+									boolean nexPl=false;
+									while(!nexPl){
+										game.nextPlayer();
+										nexPl=game.Processor.existenceMove(game.getPlayer( game.getIndexCurrent()));
+									}
 									showNextPlaerInDrawinfPanel=true;
 								}
 							}
