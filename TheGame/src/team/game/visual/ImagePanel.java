@@ -314,9 +314,10 @@ public class ImagePanel extends JPanel
 		int centerX=this.getWidth()/2;
 		int centerY=this.getHeight()/2;
 		graphics.setColor(Color.LIGHT_GRAY);
-		Font f=new Font("Monospaced", Font.ITALIC, 65);//размер шрифта не менять.
+		Font f=new Font("Arial", Font.ITALIC, 40);//размер шрифта не менять.
 		graphics.setFont(f);
-		graphics.drawString(playerName, centerX-(playerName.length()*20), centerY-10);
+		playerName=playerName+"-"+game.getPlayer( game.getIndexCurrent()).getTypeToString();
+		graphics.drawString(playerName, centerX-(playerName.length()*10), centerY-10);
 		try {
 			Thread.currentThread().sleep(3000);//3 sec.
 		} catch (InterruptedException e) {
