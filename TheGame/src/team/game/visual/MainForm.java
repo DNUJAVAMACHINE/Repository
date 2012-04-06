@@ -197,8 +197,8 @@ public class MainForm
 						game.setSize(Integer.parseInt(sizeField.getValue().toString()),Integer.parseInt(sizeField.getValue().toString()));
 						//изначальные клетки игроков
 						game.Field.getCell(0, game.Field.getCountY()-1).setOwner(game.getPlayer(0));
-						game.Field.getCell(game.Field.getCountX()-1, game.Field.getCountY()-1).setOwner(game.getPlayer(1));
-						game.Field.getCell(game.Field.getCountX()-1, 0).setOwner(game.getPlayer(2));
+						game.Field.getCell(game.Field.getCountX()-1, game.Field.getCountY()-1).setOwner(game.getPlayer(2));
+						game.Field.getCell(game.Field.getCountX()-1, 0).setOwner(game.getPlayer(1));
 						game.Field.getCell(0, 0).setOwner(game.getPlayer(3));
 						//спр€чем чат и тп..
 						gameFieldPanel.remove(bottomPanelFromLocalGame);
@@ -248,7 +248,7 @@ public class MainForm
 		JPanel sizeFieldPanel=new JPanel();
 		sizeFieldPanel.setLayout(new FlowLayout());
 		model=new SpinnerNumberModel();
-		model.setMinimum(10);
+		model.setMinimum(4);
 		model.setMaximum(50);
 		model.setValue(10);
 		sizeField=new JSpinner(model);
