@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.zip.DataFormatException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
@@ -114,7 +115,11 @@ public class ImagePanel extends JPanel
 									if (showNextPlaerInDrawinfPanel&&endGame)
 									{
 										if (game.getPlayer(game.getIndexCurrent())!=null)
-											showStepNexPlayer(game.getPlayer(game.getIndexCurrent()).name);
+											//showStepNexPlayer(game.getPlayer(game.getIndexCurrent()).name);
+										{
+											LocalPlayer p=game.getPlayer(game.getIndexCurrent());
+											showMessageOnField(p.name+"-"+p.getTypeToString(),true);
+										}
 										showNextPlaerInDrawinfPanel=false;
 										repaint();
 									}
@@ -132,19 +137,31 @@ public class ImagePanel extends JPanel
 						int cellHeight=getHeight()/game.Field.countY;
 						int i=e.getY()/cellHeight;
 						int j=e.getX()/cellWidth;
-						
-						Point pt = new Point();
-						pt.x=i; pt.y=j;
-						try {
-							if(game.Processor.GameEnd())
-							{
-								if(game.Processor.existenceMove(game.getPlayer( game.getIndexCurrent())))
-								{	
-									endGame=true;
-									//positionGame.setText("ход " + game.getPlayer( game.getIndexCurrent()).name+" - "+game.getPlayer( game.getIndexCurrent()).getTypeToString());
-									if(game.Processor.ProcessStep(game.getPlayer( game.getIndexCurrent()), pt))
-										ch++;
-									if(ch>3){
+						if (e.getX()<cellWidth*game.Field.countX&&e.getY()<cellHeight*game.Field.countY)
+						{
+							Point pt = new Point();
+							pt.x=i; pt.y=j;
+							try {
+								if(game.Processor.GameEnd())
+								{
+									if(game.Processor.existenceMove(game.getPlayer( game.getIndexCurrent())))
+									{	
+										endGame=true;
+										//positionGame.setText("ход " + game.getPlayer( game.getIndexCurrent()).name+" - "+game.getPlayer( game.getIndexCurrent()).getTypeToString());
+										if(game.Processor.ProcessStep(game.getPlayer( game.getIndexCurrent()), pt))
+											ch++;
+										if(ch>3){
+											ch=1;
+											boolean nexPl=false;
+											while(!nexPl){
+												game.nextPlayer();
+												nexPl=game.Processor.existenceMove(game.getPlayer( game.getIndexCurrent()));
+											}
+											showNextPlaerInDrawinfPanel=true;
+										}
+									}
+									else
+									{
 										ch=1;
 										boolean nexPl=false;
 										while(!nexPl){
@@ -154,34 +171,35 @@ public class ImagePanel extends JPanel
 										showNextPlaerInDrawinfPanel=true;
 									}
 								}
-								else
-								{
-									ch=1;
-									boolean nexPl=false;
-									while(!nexPl){
-										game.nextPlayer();
-										nexPl=game.Processor.existenceMove(game.getPlayer( game.getIndexCurrent()));
-									}
-									showNextPlaerInDrawinfPanel=true;
-								}
-							}
 
-							else {
-								endGame=false;
-								int[] win = new int[4]; 
-								win=game.Processor.Winner();
-								positionGame.setText("Конец игры!..");
-								for(int l=0; l< 4 ; ++l){
-									if(game.getPlayer(l)!=null){
-										positionGame.setText(positionGame.getText()+ " "+game.getPlayer(l).getTypeToString()+":"+win[l]);
+								else {
+									endGame=false;
+									int[] win = new int[4]; 
+									win=game.Processor.Winner();
+									int countPlayer=0;
+									for(int l=0; l< 4 ; ++l)
+										if(game.getPlayer(l)!=null)
+											countPlayer++;
+									String dataFromScore[]=new String[countPlayer];
+									//positionGame.setText("Конец игры!..");
+									
+									for(int l=0,k=0; l< 4 ; ++l){
+										if(game.getPlayer(l)!=null)
+										{
+											dataFromScore[k]=game.getPlayer(l).getTypeToString()+": "+win[l];
+											k++;
+											//positionGame.setText(positionGame.getText()+ " "+game.getPlayer(l).getTypeToString()+":"+win[l]);
+											//showMessageOnField("Конец игры!..."+" "+game.getPlayer(l).getTypeToString()+":"+win[l],false);
+											
+										}
 									}
+									ScoreForm.showScore(dataFromScore);
 								}
-							}
-						} catch (Throwable ex) {
+							} catch (Throwable ex) {
 							ex.printStackTrace();
+							}
+							repaint();
 						}
-						
-						repaint();
 					}
 				}
 				);
@@ -197,12 +215,24 @@ public class ImagePanel extends JPanel
 		{
 			inStart=false;
 			if (game.getPlayer( game.getIndexCurrent())!=null)
+			{
+				this.positionGame.setForeground(Color.BLUE);
 				this.positionGame.setText("ход " + game.getPlayer( game.getIndexCurrent()).name+" - "+game.getPlayer( game.getIndexCurrent()).getTypeToString()+" | Осталось ходов :"+(4-ch));
+			}
 		}
 		else
 			if (game.getPlayer( game.getIndexCurrent())!=null && endGame)
+			{
+				if (game.getPlayer(game.getIndexCurrent()).equals(game.getPlayer(0)))
+					this.positionGame.setForeground(Color.BLUE);
+				if (game.getPlayer(game.getIndexCurrent()).equals(game.getPlayer(1)))
+					this.positionGame.setForeground(new Color(10,200,10));
+				if (game.getPlayer(game.getIndexCurrent()).equals(game.getPlayer(2)))
+					this.positionGame.setForeground(Color.RED);
+				if (game.getPlayer(game.getIndexCurrent()).equals(game.getPlayer(3)))
+					this.positionGame.setForeground(new Color(210, 190, 0));
 				this.positionGame.setText("ход " + game.getPlayer( game.getIndexCurrent()).name+" - "+game.getPlayer( game.getIndexCurrent()).getTypeToString()+" | Осталось ходов :"+(4-ch));
-		
+			}
 		super.paint(g);
 		int i,j;
 		int countWidth=game.Field.countX;
@@ -306,26 +336,36 @@ public class ImagePanel extends JPanel
 					//brush image;
 					g.drawImage(image,j*cellWidth+1,i*cellHeight+1,cellWidth-1,cellHeight-1,null);
 				}
-			}
-		//Создание нового потока для прорисовки след игрока при смене игроков...
-		
-		
+			}		
 	}
 	/**
-	 * Временная задержка и отображ имени след игрока при смене игроков...
+	 * Временная задержка и отображ сообщения по середине поля...
 	 * Автор Волченко Юрий Константинович 8)
 	 * @param playerName
 	 */
-	private void showStepNexPlayer(String playerName)
+	//private void showStepNexPlayer(String playerName)//старое
+	private void showMessageOnField(String msg,boolean usePlayersColor)
 	{
 		Graphics graphics=getGraphics();
 		int centerX=this.getWidth()/2;
 		int centerY=this.getHeight()/2;
-		graphics.setColor(Color.LIGHT_GRAY);
-		Font f=new Font("Arial", Font.ITALIC, 40);//размер шрифта не менять.
+		//
+		Font f=new Font("Arial", Font.BOLD, 40);//размер шрифта не менять.
 		graphics.setFont(f);
-		playerName=playerName+"-"+game.getPlayer( game.getIndexCurrent()).getTypeToString();
-		graphics.drawString(playerName, centerX-(playerName.length()*10), centerY-10);
+		if (usePlayersColor)
+		{
+			if (game.getPlayer(game.getIndexCurrent()).equals(game.getPlayer(0)))
+				graphics.setColor(Color.BLUE);
+			if (game.getPlayer(game.getIndexCurrent()).equals(game.getPlayer(1)))
+				graphics.setColor(new Color(10,200,10));
+			if (game.getPlayer(game.getIndexCurrent()).equals(game.getPlayer(2)))
+				graphics.setColor(Color.RED);
+			if (game.getPlayer(game.getIndexCurrent()).equals(game.getPlayer(3)))
+				graphics.setColor(new Color(210, 190, 0));
+		}
+		else
+			graphics.setColor(Color.LIGHT_GRAY);
+		graphics.drawString(msg, centerX-(msg.length()*10), centerY-10);
 		try {
 			Thread.currentThread().sleep(3000);//3 sec.
 		} catch (InterruptedException e) {
