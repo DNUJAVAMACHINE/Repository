@@ -7,7 +7,6 @@ import java.util.List;
 import team.game.data.AbstractPlayer;
 import team.game.data.Cell;
 import team.game.data.Game;
-import team.game.data.LocalPlayer;
 
 /**
  * 
