@@ -2,14 +2,14 @@ package team.game.data;
 
 public class Cell {
 	
-	private LocalPlayer owner;
-	private LocalPlayer actor;
+	private AbstractPlayer owner;
+	private AbstractPlayer actor;
 	public Cell(){
 		owner=null;
 		actor=null;
 	}
-	public LocalPlayer getOwner(){return owner;}
-	public LocalPlayer getActor(){return actor;}
-	public void setOwner(LocalPlayer player){owner = player;}
-	public void setActor(LocalPlayer player){actor = player;}
+	public AbstractPlayer getOwner(){return owner;}
+	public AbstractPlayer getActor(){return actor;}
+	public void setOwner(AbstractPlayer player){owner = player;}
+	public void setActor(AbstractPlayer player){actor = player;}
 }

@@ -9,15 +9,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.zip.DataFormatException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import team.game.data.AbstractPlayer;
 import team.game.data.FigureType;
 import team.game.data.Game;
-import team.game.data.LocalPlayer;
 /**
  * Прорисовка графич компонент
  * Отловка ходов игрока 
@@ -117,7 +116,7 @@ public class ImagePanel extends JPanel
 										if (game.getPlayer(game.getIndexCurrent())!=null)
 											//showStepNexPlayer(game.getPlayer(game.getIndexCurrent()).name);
 										{
-											LocalPlayer p=game.getPlayer(game.getIndexCurrent());
+											AbstractPlayer p=game.getPlayer(game.getIndexCurrent());
 											showMessageOnField(p.name+"-"+p.getTypeToString(),true);
 										}
 										showNextPlaerInDrawinfPanel=false;
@@ -250,8 +249,8 @@ public class ImagePanel extends JPanel
 			for (j=0;j<game.Field.countX;++j)//if-ы не пределовать!
 			{
 				Image image=null;
-				LocalPlayer owner=game.Field.getCell(i, j).getOwner();
-				LocalPlayer actor=game.Field.getCell(i, j).getActor();
+				AbstractPlayer owner=game.Field.getCell(i, j).getOwner();
+				AbstractPlayer actor=game.Field.getCell(i, j).getActor();
 				if (owner!=null)
 				{
 					if (actor==null)

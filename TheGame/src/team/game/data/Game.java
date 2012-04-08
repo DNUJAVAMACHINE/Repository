@@ -8,11 +8,13 @@ import team.game.logic.GameProcessor;
  *
  */
 public class Game {
+	public static final int LOCAL = 0;
+	public static final int LAN   = 1;
 	
-	public  GameField 		Field;
-	public  GameProcessor 	Processor;
-	public  LocalPlayer[]	players;
-	private int 			indexCurrent;
+	public  GameField        Field;
+	public  GameProcessor 	 Processor;
+	public  AbstractPlayer[] players;
+	private int              indexCurrent;
 	
 	private static Game game = new Game();
 	
@@ -25,16 +27,20 @@ public class Game {
 	}
 	/**
 	 * устанавливает игроков
+	 * @param kindOfPlayer 0 - LocalPlayer, 1 - LanPlayer
 	 * @param names имена игроков
 	 */
-	public void setPlayers(String... names) {
+	public void setPlayers(int kindOfPlayer, String... names) {
 		for (int i = 0; i < 4; ++i)
 			players[i] = null;
 		
 		for (int i = 0; i < names.length && i < 4; ++i)
 			if (names[i] != null)
-				players[i] = new LocalPlayer(names[i], (i+1));
-	}
+				if (kindOfPlayer == LOCAL)
+					players[i] = new LocalPlayer(names[i], (i+1));
+				else if (kindOfPlayer == LAN)
+					players[i] = new LanPlayer(names[i], (i+1));
+		}
 	
 	public static Game getInstance() {
 		return game;
@@ -78,7 +84,7 @@ public class Game {
 	 * @param index индекс игрока
 	 * @return Null при всяких плохих ситуациях... 
 	 */
-	public LocalPlayer getPlayer(int index)
+	public AbstractPlayer getPlayer(int index)
 	{
 		if (players!=null)
 		{

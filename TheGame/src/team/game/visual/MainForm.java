@@ -193,7 +193,7 @@ public class MainForm
 								         player4NameFromLocalgame.getText() != "" ? 
 								         player4NameFromLocalgame.getText() : null;
 								        
-						game.setPlayers(player1, player2, player3, player4);
+						game.setPlayers(Game.LOCAL, player1, player2, player3, player4);
 						game.setSize(Integer.parseInt(sizeField.getValue().toString()),Integer.parseInt(sizeField.getValue().toString()));
 						//изначальные клетки игроков
 						game.Field.getCell(0, game.Field.getCountY()-1).setOwner(game.getPlayer(0));

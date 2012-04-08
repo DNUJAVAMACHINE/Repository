@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import team.game.data.AbstractPlayer;
 import team.game.data.Cell;
 import team.game.data.Game;
 import team.game.data.LocalPlayer;
@@ -16,20 +17,17 @@ import team.game.data.LocalPlayer;
 public class GameProcessor {
 	private Game game;
 	private class Tree{
-		LocalPlayer player;
-		Point 		RootXY;
-		Cell 		Head;
-		List<Cell> 	Branches ;
-		List<Point> BranchesXY;
-		int countX, countY;
-		List<Point> MemoryBranches;
-		Tree(LocalPlayer pl, Point xy, List<Point> Memory)
+		AbstractPlayer player;
+		Point          RootXY;
+		List<Cell>     Branches ;
+		List<Point>    BranchesXY;
+		int            countX, countY;
+		List<Point>    MemoryBranches;
+		Tree(AbstractPlayer pl, Point xy, List<Point> Memory)
 		{
 			player			= pl;
 			RootXY 			= new Point();
 			RootXY 			= xy;
-			Head 			= new Cell();
-			Head 			= game.Field.getCell(RootXY.x,RootXY.y);
 			Branches		= new ArrayList<Cell>();
 			BranchesXY 		= new ArrayList<Point>();
 			MemoryBranches	= Memory;
@@ -77,7 +75,7 @@ public class GameProcessor {
 		}
 	}
 	public GameProcessor( Game game) {this.game = game;}
-	public boolean ProcessStep(LocalPlayer player, Point xy){
+	public boolean ProcessStep(AbstractPlayer player, Point xy){
 		if(game.Field.getCell(xy.x, xy.y).getOwner()==player)
 			return false;
 		Tree TRcell= new Tree(player, xy, new ArrayList<Point>());
@@ -96,7 +94,7 @@ public class GameProcessor {
 	 * @param pl, конкретный игрок
 	 * @return true, если есть ход
 	 */
-	public boolean existenceMove(LocalPlayer pl){ 
+	public boolean existenceMove(AbstractPlayer pl){ 
 		boolean res = false;
 		for(int i=0; i< game.Field.getCountX(); ++i)
 			for(int j=0; j< game.Field.getCountY(); ++j)
